@@ -9,6 +9,8 @@ class Group::Dachverband < ::Group
 
   self.layer = true
 
+  self.event_types = [Event, Event::Course]
+
   # TODO: define actual child group types
   #children Group::Root
 
