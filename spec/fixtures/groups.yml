@@ -6,7 +6,7 @@
 root:
   parent:
   lft: 1
-  rgt: 2
+  rgt: 20
   name: Hauptgruppe
   type: Group::Dachverband
   email: root@example.net
@@ -15,4 +15,81 @@ root:
   town: Neu Carlscheid
   layer_group_id: <%= ActiveRecord::FixtureSet.identify(:root) %>
 
-# TODO add more groups
+gs:
+  parent: root
+  lft: 14
+  rgt: 15
+  type: Group::DachverbandGremium
+  name: Geschäftsleitung
+  email: gs@pronatura.example.ch
+  address: Klostergasse 3
+  zip_code: 3333
+  town: Bern
+  country: CH
+  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:root) %>
+
+be:
+  parent: root
+  lft: 4
+  rgt: 13
+  type: Group::Sektion
+  name: Bern
+  short_name: BE
+  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:be) %>
+
+zh:
+  parent: root
+  lft: 16
+  rgt: 19
+  type: Group::Sektion
+  name: Zürich
+  short_name: ZH
+  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:zh) %>
+
+thun:
+  parent: be
+  lft: 7
+  rgt: 12
+  type: Group::Jugendgruppe
+  name: "Thun \"Alpendohlen\""
+  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:thun) %>
+
+jura:
+  parent: be
+  lft: 5
+  rgt: 6
+  type: Group::Jugendgruppe
+  name: Jura Bernois
+  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:jura) %>
+
+zuerich:
+  parent: zh
+  lft: 17
+  rgt: 18
+  type: Group::Jugendgruppe
+  name: "Zürich \"Natrix\""
+  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:zuerich) %>
+
+basel:
+  parent: root
+  lft: 2
+  rgt: 3
+  type: Group::Jugendgruppe
+  name: "Basel \"Grieni Kääfer\""
+  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:basel) %>
+
+thun_passive:
+  parent: thun
+  lft: 10
+  rgt: 11
+  type: Group::JugendgruppePassive
+  name: Passive
+  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:thun) %>
+
+kyburg:
+  parent: thun
+  lft: 8
+  rgt: 9
+  type: Group::JugendgruppeGremium
+  name: Kyburg Gitzenis
+  layer_group_id: <%= ActiveRecord::FixtureSet.identify(:thun) %>

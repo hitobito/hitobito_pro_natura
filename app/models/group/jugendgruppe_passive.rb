@@ -5,22 +5,21 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_pro_natura.
 
-class Group::Dachverband < ::Group
+class Group::JugendgruppePassive < ::Group
 
-  self.layer = true
-
-  self.event_types = [Event, Event::Course]
-
-  children Group::Sektion,
-           Group::Jugendgruppe,
-           Group::DachverbandGremium
+  children Group::JugendgruppePassive
 
   ### ROLES
 
-  class PlJugend < ::Role
-    self.permissions = [:layer_and_below_full, :admin, :contact_data]
+  class Admin < ::Role
+    self.permissions = [:group_and_below_full]
   end
 
-  roles PlJugend
+  class Member < ::Role
+    self.permissions = []
+    self.visible_from_above = false
+  end
+
+  roles Admin, Member
 
 end

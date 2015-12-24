@@ -19,6 +19,29 @@ unless root.address.present?
   end
 end
 
-# TODO: define more groups
+gremien = Group::DachverbandGremium.seed(:name, :parent_id,
+                                         { name: 'Geschäftsleitung',
+                                           address: "Klostergasse 3",
+                                           zip_code: "3333",
+                                           town: "Bern",
+                                           country: "CH",
+                                           email: "gs@pronatura.example.ch",
+                                           parent_id: root.id})
+
+sektionen = Group::Sektion.seed(:name, :parent_id,
+                                { name: 'Bern', short_name: 'BE',  parent_id: root.id },
+                                { name: 'Zürich', short_name: 'ZH',  parent_id: root.id })
+
+jg = Group::Jugendgruppe.seed(:name, :parent_id,
+                              { name: 'Thun "Alpendohlen"',  parent_id: sektionen[0].id },
+                              { name: 'Jura Bernois',  parent_id: sektionen[0].id },
+                              { name: 'Zürich "Natrix"',  parent_id: sektionen[1].id },
+                              { name: 'Basel "Grieni Kääfer"',  parent_id: root.id })
+
+Group::JugendgruppePassive.seed(:name, :parent_id,
+                                { name: 'Passive', parent_id: jg[0].id })
+
+Group::JugendgruppeGremium.seed(:name, :parent_id,
+                                { name: 'Kyburg Gitzenis', parent_id: jg[0].id })
 
 Group.rebuild!

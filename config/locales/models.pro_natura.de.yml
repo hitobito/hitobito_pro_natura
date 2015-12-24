@@ -12,10 +12,48 @@ de:
       group/dachverband:
         one: Dachverband
         other: Dachverband
-
+      group/dachverband_gremium:
+        one: Gremium
+        other: Gremien
+      group/sektion:
+        one: Sektion
+        other: Sektionen
+      group/jugendgruppe:
+        one: Jugendgruppe
+        other: Jugendgruppen
+      group/jugendgruppe_gremium:
+        one: Gremium
+        other: Gremien
+      group/jugendgruppe_passive:
+        one: Externe/Helfer/Passivmitglieder
+        other: Externe/Helfer/Passivmitglieder
 
       ### ROLES
 
       group/dachverband/pl_jugend:
         one: PL Jugend
-        description: Projektleitung Jugend.
+
+      group/dachverband_gremium/leader:
+        one: Leitung
+      group/dachverband_gremium/member:
+        one: Mitglied
+
+      group/sektion/admin:
+        one: Sektionsverwaltung
+
+      group/jugendgruppe/admin:
+        one: Verantwortliche/r
+      group/jugendgruppe/leader:
+        one: Leitung
+      group/jugendgruppe/member:
+        one: Aktivmitglied
+
+      group/jugendgruppe_gremium/leader:
+        one: Leitung
+      group/jugendgruppe_gremium/member:
+        one: Aktivmitglied
+
+      group/jugendgruppe_passive/admin:
+        one: Adressverwaltung
+      group/jugendgruppe_passive/member:
+        one: Passivmitglied/Extern/Hilfsperson
