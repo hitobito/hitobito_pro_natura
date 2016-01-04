@@ -3,19 +3,17 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_pro_natura.
 
-admin:
-  person: admin
+pl_jugend:
+  person: pl_jugend
   group: root
   type: Group::Dachverband::PlJugend
 
-# TODO use group and type of the main base leader
-#leader:
-#  person: leader
-#  group: root
-#  type: Group::Root::Leader
+thun_leader:
+  person: thun_leader
+  group: thun
+  type: Group::Jugendgruppe::Leader
 
-# TODO use group and type of the main base member
-#member:
-#  person: member
-#  group: root
-#  type: Group::Root::Member
+thun_member:
+  person: thun_member
+  group: thun
+  type: Group::Jugendgruppe::Member

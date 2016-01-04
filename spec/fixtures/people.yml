@@ -3,23 +3,23 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_pro_natura.
 
-admin:
-  first_name: Chief
-  last_name: Admin
-  email: admin@hitobito.example.comt
-  gender: m
+pl_jugend:
+  first_name: Projektleiterin
+  last_name: Jugend
+  email: pl_jugend@hitobito.example.com
+  gender: w 
   contact_data_visible: true
   primary_group: root
 
-leader:
-  first_name: A
-  last_name: Leader
-  email: a.leader@hitobito.example.com
+thun_leader:
+  first_name: Hans
+  last_name: Leiter
+  email: leiter_thun@hitobito.example.com
   contact_data_visible: true
-  primary_group: root
+  primary_group: thun
 
-member:
-  first_name: My
-  last_name: Member
-  email: member0@hitobito.example.com
-  primary_group: root
+thun_member:
+  first_name: Rolf
+  last_name: Vogel
+  email: mitglied_alpendohlen@hitobito.example.com
+  primary_group: thun

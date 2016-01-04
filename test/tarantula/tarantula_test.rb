@@ -19,23 +19,16 @@ class TarantulaTest < ActionDispatch::IntegrationTest
 
   include TarantulaConfig
 
-  # Crawls the application with admin permissions
-  # to cover as many actions as possible.
-  def test_tarantula_as_admin
-    crawl_as(people(:admin))
+  def test_tarantula_as_pl_jugend
+    crawl_as(people(:pl_jugend))
   end
 
-  # Crawls the application in the most common administrative role
-  # on the base layer as an intermediate user.
-  def xtest_tarantula_as_leader
-    crawl_as(people(:leader))
+  def test_tarantula_as_thun_leiter
+    crawl_as(people(:thun_leader))
   end
 
-  # Crawls the application with almost no permissions in the
-  # the most common member role to check the public pages and
-  # the absence of links to permission denied actions.
-  def xtest_tarantula_as_member
-    crawl_as(people(:member))
+  def test_tarantula_as_mitglied
+    crawl_as(people(:thun_member))
   end
 
   private
