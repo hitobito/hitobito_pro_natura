@@ -5,8 +5,13 @@
 
 de:
   activerecord:
-    models:
 
+    attributes:
+      person:
+        language: Sprache
+        adress_nummer: Adress-Nummer
+
+    models:
       ### GROUPS
 
       group/dachverband:

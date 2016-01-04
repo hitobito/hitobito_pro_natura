@@ -22,6 +22,10 @@ module HitobitoProNatura
       # rubocop:disable SingleSpaceBeforeFirstArg
       # extend application classes here
       Group.send :include, ProNatura::Group
+      Person.send :include, ProNatura::Person
+
+      # controller
+      PeopleController.permitted_attrs += [:adress_nummer, :language]
       # rubocop:enable SingleSpaceBeforeFirstArg
     end
 
