@@ -72,16 +72,16 @@ describe Person::Mutations::Fetcher do
   context '#fetch' do
     subject { fetcher.fetch }
 
-    it 'is ordered by change date' do
-      expect(subject.collect(&:to_s)).to eq([@deleted,
-                                             @deleted_multi,
-                                             @created,
-                                             @updated,
-                                             @multi_roles,
-                                             @phone_changed,
-                                             @role_added,
-                                             @primary_group_changed
-                                             ].collect(&:to_s))
+    it 'contains all people' do
+      expect(subject.collect(&:to_s)).to match_array([@deleted,
+                                                      @deleted_multi,
+                                                      @created,
+                                                      @updated,
+                                                      @multi_roles,
+                                                      @phone_changed,
+                                                      @role_added,
+                                                      @primary_group_changed
+                                                      ].collect(&:to_s))
     end
 
     it 'contains changeset for update' do
