@@ -6,7 +6,7 @@
 #  https://github.com/hitobito/hitobito_pro_natura.
 
 module Sheet
-  class Person
+  class Person < Base
     class Mutation < Base
 
       self.parent_sheet = Sheet::Group
