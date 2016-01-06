@@ -19,14 +19,18 @@ module HitobitoProNatura
                              )
 
     config.to_prepare do
-      # rubocop:disable SingleSpaceBeforeFirstArg
       # extend application classes here
       Group.send :include, ProNatura::Group
       Person.send :include, ProNatura::Person
 
       # controller
       PeopleController.permitted_attrs += [:adress_nummer, :language]
-      # rubocop:enable SingleSpaceBeforeFirstArg
+
+      # abilities
+      GroupAbility.send :include, ProNatura::GroupAbility
+
+      # sheets
+      Sheet::Group.send :include, ProNatura::Sheet::Group
     end
 
     initializer 'pro_natura.add_settings' do |_app|

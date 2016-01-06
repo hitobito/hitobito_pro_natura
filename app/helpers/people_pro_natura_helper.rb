@@ -8,7 +8,7 @@
 module PeopleProNaturaHelper
 
   def person_languages
-    Person::LANGUAGES.collect {|l| [l, t_person_language(l)]}
+    Person::LANGUAGES.collect { |l| [l, t_person_language(l)] }
   end
 
   def format_person_language(person)
@@ -16,9 +16,11 @@ module PeopleProNaturaHelper
   end
 
   private
+
   def t_person_language(language)
     return unless language.present?
     prefix = 'people.language.'
     t(prefix + language.downcase)
   end
+
 end
