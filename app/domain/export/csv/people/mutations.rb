@@ -15,7 +15,8 @@ module Export::Csv::People
     self.model_class = Person
 
     def attributes
-      [:kind, :changed_at, :changeset, :primary_roles, :primary_layer, :primary_group,
+      [:kind, :changed_at, :changeset,
+       :primary_roles, :role_changes, :primary_layer, :primary_group,
        :adress_nummer, :first_name, :last_name, :address, :country, :zip_code, :town,
        :phone_number_private, :phone_number_mobile, :email]
     end

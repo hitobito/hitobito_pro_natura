@@ -60,7 +60,7 @@ module Person::Mutations
     def add_modified_person(person)
       kind = identify_kind(person)
       version = PaperTrail::Version.where(main: person).order('created_at DESC').first
-      Mutation.new(person, kind, version.created_at, version.changeset)
+      Mutation.new(person, kind, version.created_at, version.changeset, since)
     end
 
     def add_deleted_person(person)

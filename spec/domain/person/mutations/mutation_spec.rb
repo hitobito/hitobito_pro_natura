@@ -12,7 +12,7 @@ describe Person::Mutations::Mutation do
   let(:group) { groups(:kyburg) }
   let(:person) { Fabricate(Group::JugendgruppeGremium::Member.name, group: group).person }
 
-  subject { Person::Mutations::Mutation.new(person, :created, Time.zone.now) }
+  subject { Person::Mutations::Mutation.new(person, :created, Time.zone.now, {}, 1.month.ago) }
 
   it 'resolves phone number' do
     person.phone_numbers.create!(number: '123', label: 'Privat')
@@ -30,6 +30,10 @@ describe Person::Mutations::Mutation do
 
   it 'resolves roles' do
     expect(subject.primary_roles).to eq(['Aktivmitglied'])
+  end
+
+  it 'resolves role changes' do
+    expect(subject.role_changes).to eq(true)
   end
 
 end

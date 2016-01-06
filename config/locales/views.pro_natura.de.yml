@@ -13,6 +13,7 @@ de:
     changed_at: Mutationsdatum
     changeset: Mutation
     primary_roles: Rollen
+    role_changes: Rollenanpassung
     primary_layer: Hauptebene
     primary_group: Hauptgruppe
     adress_nummer: adrnr

@@ -11,16 +11,18 @@ module Person::Mutations
     PERSON_ATTRS = [:id, :first_name, :last_name, :nickname, :address, :zip_code, :town, :country,
                     :email, :adress_nummer]
 
-    attr_reader :kind, :changed_at, :changeset, :primary_roles, :primary_layer, :primary_group,
+    attr_reader :kind, :changed_at, :changeset,
+                :primary_roles, :primary_layer, :primary_group, :role_changes,
                 :phone_number_private, :phone_number_mobile,
                 *PERSON_ATTRS
 
-    def initialize(person, kind, changed_at, changeset = {})
+    def initialize(person, kind, changed_at, changeset = {}, since = nil)
       @kind = kind
       @changed_at = changed_at
       @changeset = changeset
       store_attrs(person)
-      store_values(person)
+      store_phone_numbers(person)
+      store_primary_group_info(person, since) unless kind == :deleted
     end
 
     def to_s
@@ -35,16 +37,20 @@ module Person::Mutations
       end
     end
 
-    def store_values(person)
-      @primary_roles = fetch_primary_roles(person)
-      @primary_layer = fetch_primary_layer(person).to_s
-      @primary_group = person.primary_group.to_s
+    def store_phone_numbers(person)
       @phone_number_private = fetch_phone_number(person, 'Privat')
       @phone_number_mobile = fetch_phone_number(person, 'Mobil')
     end
 
+    def store_primary_group_info(person, since)
+      @primary_roles = fetch_primary_roles(person).collect(&:to_s)
+      @primary_layer = fetch_primary_layer(person).to_s
+      @primary_group = person.primary_group.to_s
+      @role_changes = fetch_role_changes(person, since) if since
+    end
+
     def fetch_primary_roles(person)
-      person.roles.select { |r| r.group_id = person.primary_group_id }.collect(&:to_s)
+      person.roles.select { |r| r.group_id == person.primary_group_id }
     end
 
     def fetch_primary_layer(person)
@@ -53,6 +59,12 @@ module Person::Mutations
 
     def fetch_phone_number(person, label)
       person.phone_numbers.find { |n| n.label == label }.try(:number)
+    end
+
+    def fetch_role_changes(person, since)
+      person.roles.with_deleted.any? do |r|
+        r.created_at >= since || (r.deleted_at && r.deleted_at >= since)
+      end
     end
 
   end

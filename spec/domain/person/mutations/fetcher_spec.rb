@@ -20,6 +20,8 @@ describe Person::Mutations::Fetcher, versioning: true do
     @phone_changed.phone_numbers.create!(number: '123', label: 'Privat')
     @role_added = create_past
     Fabricate(Group::Sektion::Admin.name, group: groups(:be), person: @role_added)
+    @role_deleted = create_past([Group::Jugendgruppe::Member, groups(:thun)], [Group::Sektion::Admin, groups(:be)])
+    @role_deleted.roles.where(group: groups(:thun)).destroy_all
     @primary_group_changed = create_past([Group::Jugendgruppe::Member, groups(:thun)], [Group::Sektion::Admin, groups(:be)])
     @primary_group_changed.update!(primary_group_id: groups(:be).id)
     @deleted = Fabricate(Group::Jugendgruppe::Member.name, group: groups(:thun), deleted_at: 1.month.ago).person
@@ -56,6 +58,7 @@ describe Person::Mutations::Fetcher, versioning: true do
                                   @multi_roles,
                                   @phone_changed,
                                   @role_added,
+                                  @role_deleted,
                                   @primary_group_changed].collect(&:to_s))
     end
   end
@@ -80,6 +83,7 @@ describe Person::Mutations::Fetcher, versioning: true do
                                                       @multi_roles,
                                                       @phone_changed,
                                                       @role_added,
+                                                      @role_deleted,
                                                       @primary_group_changed
                                                       ].collect(&:to_s))
     end
@@ -89,6 +93,7 @@ describe Person::Mutations::Fetcher, versioning: true do
       expect(modification.changed_at).to be_within(1).of(@primary_group_changed.updated_at)
       expect(modification.kind).to eq(:updated)
       expect(modification.changeset).to eq('primary_group_id' => [groups(:thun).id, groups(:be).id])
+      expect(modification.role_changes).to eq(false)
     end
 
     it 'contains changeset for create' do
@@ -96,6 +101,7 @@ describe Person::Mutations::Fetcher, versioning: true do
       expect(modification.changed_at).to be_within(1).of(@created.created_at)
       expect(modification.kind).to eq(:created)
       expect(modification.changeset).to be_present
+      expect(modification.role_changes).to eq(true)
     end
 
     it 'contains no changeset for delete' do
@@ -104,6 +110,7 @@ describe Person::Mutations::Fetcher, versioning: true do
       expect(modification.changed_at).to be_within(0.01).of(role.deleted_at)
       expect(modification.kind).to eq(:deleted)
       expect(modification.changeset).to eq({})
+      expect(modification.role_changes).to eq(nil)
     end
 
     it 'contains changeset for phone number' do
@@ -111,14 +118,26 @@ describe Person::Mutations::Fetcher, versioning: true do
       expect(modification.kind).to eq(:updated)
       expect(modification.changeset['number']).to eq([nil, '123'])
       expect(modification.changeset['label']).to eq([nil, 'Privat'])
+      expect(modification.role_changes).to eq(false)
     end
 
-    it 'contains changeset for role' do
+    it 'contains changeset for role added' do
       modification = subject.find { |m| m.id == @role_added.id }
       role = @role_added.roles.find { |r| r.group_id == groups(:be).id }
       expect(modification.changed_at).to be_within(0.01).of(role.created_at)
       expect(modification.kind).to eq(:updated)
       expect(modification.changeset.keys).to have(5).items
+      expect(modification.role_changes).to eq(true)
+    end
+
+    it 'contains changeset for role deleted' do
+      modification = subject.find { |m| m.id == @role_deleted.id }
+      role = @role_deleted.roles.with_deleted.find { |r| r.group_id == groups(:thun).id }
+      expect(modification.changed_at).to be_within(0.01).of(role.deleted_at)
+      expect(modification.kind).to eq(:updated)
+      expect(modification.changeset).to eq({})
+      #binding.pry
+      expect(modification.role_changes).to eq(true)
     end
 
   end

@@ -27,15 +27,16 @@ describe Export::Csv::People::Mutations do
     let(:p2) { Fabricate(Group::Jugendgruppe::Member.name, group: groups(:thun)).person }
 
     let(:mutations) do
-      [Person::Mutations::Mutation.new(p1, :created, p1.created_at, p1.versions.last.changeset),
-       Person::Mutations::Mutation.new(p2, :updated, p2.created_at, p2.roles.first.versions.last.changeset)]
+      [Person::Mutations::Mutation.new(p1, :created, p1.created_at, p1.versions.last.changeset, 1.week.ago),
+       Person::Mutations::Mutation.new(p2, :updated, p2.created_at, p2.roles.first.versions.last.changeset, 1.week.ago)]
     end
 
     subject { [].tap { |g| exporter.to_csv(g) } }
 
     it 'renders complete header' do
-      expect(subject.first).to eq(['Mutationsart', 'Mutationsdatum', 'Mutation', 'Rollen', 'Hauptebene',
-                                   'Hauptgruppe', 'adrnr', 'vorname1', 'nachname1', 'strasse', 'land',
+      expect(subject.first).to eq(['Mutationsart', 'Mutationsdatum', 'Mutation', 'Rollen',
+                                   'Rollenanpassung', 'Hauptebene', 'Hauptgruppe',
+                                   'adrnr', 'vorname1', 'nachname1', 'strasse', 'land',
                                    'plz', 'ort', 'telp', 'mobilep', 'emailp'])
     end
 
@@ -51,7 +52,7 @@ describe Export::Csv::People::Mutations do
       }.collect { |attr, label| "#{label}: nil -> \"#{p1.send(attr)}\"" }.join(', ')
 
       expect(subject.second).to eq(['neu', p1.created_at, changeset,
-                                    'Aktivmitglied', 'Thun "Alpendohlen"', 'Thun "Alpendohlen"',
+                                    'Aktivmitglied', 'ja', 'Thun "Alpendohlen"', 'Thun "Alpendohlen"',
                                     nil, p1.first_name, p1.last_name, p1.address, p1.country,
                                     p1.zip_code, p1.town, nil, '123', p1.email])
     end
