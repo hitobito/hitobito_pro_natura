@@ -7,7 +7,7 @@
 
 require 'spec_helper'
 
-describe Person::Mutations::Fetcher do
+describe Person::Mutations::Fetcher, versioning: true do
 
   before do
     @created = Fabricate(Group::Jugendgruppe::Member.name, group: groups(:thun)).person

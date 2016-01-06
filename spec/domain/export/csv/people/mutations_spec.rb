@@ -22,7 +22,7 @@ describe Export::Csv::People::Mutations do
     end
   end
 
-  context '#csv' do
+  context '#csv', versioning: true do
     let(:p1) { Fabricate(Group::Jugendgruppe::Member.name, group: groups(:thun)).person }
     let(:p2) { Fabricate(Group::Jugendgruppe::Member.name, group: groups(:thun)).person }
 
