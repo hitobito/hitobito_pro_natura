@@ -86,16 +86,16 @@ describe Person::Mutations::Fetcher do
 
     it 'contains changeset for update' do
       modification = subject.find { |m| m.id == @primary_group_changed.id }
-      expect(modification.changed_at).to be_within(0.01).of(@primary_group_changed.updated_at)
+      expect(modification.changed_at).to be_within(1).of(@primary_group_changed.updated_at)
       expect(modification.kind).to eq(:updated)
       expect(modification.changeset).to eq('primary_group_id' => [groups(:thun).id, groups(:be).id])
     end
 
     it 'contains changeset for create' do
       modification = subject.find { |m| m.id == @created.id }
-      expect(modification.changed_at).to be_within(0.01).of(@created.created_at)
+      expect(modification.changed_at).to be_within(1).of(@created.created_at)
       expect(modification.kind).to eq(:created)
-      expect(modification.changeset.keys).to have(5).items
+      expect(modification.changeset).to be_present
     end
 
     it 'contains no changeset for delete' do

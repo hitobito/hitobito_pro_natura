@@ -23,7 +23,10 @@ module Person::Mutations
     end
 
     def mutated_people
-      mutated_in_period(people_with_roles)
+      people_with_roles.
+        joins('INNER JOIN versions ' \
+              "ON versions.main_id = people.id AND versions.main_type = 'Person'").
+        where('versions.created_at >= ?', since)
     end
 
     def deleted_people
@@ -47,13 +50,6 @@ module Person::Mutations
       end
     end
 
-    def mutated_in_period(scope)
-      scope.
-        joins('INNER JOIN versions ' \
-              "ON versions.main_id = people.id AND versions.main_type = 'Person'").
-        where('versions.created_at >= ?', since)
-    end
-
     def people_with_roles
       Person.
         joins(:roles).
@@ -68,7 +64,9 @@ module Person::Mutations
     end
 
     def add_deleted_person(person)
-      Mutation.new(person, :deleted, DateTime.parse(person.deleted_at).in_time_zone)
+      changed_at = person.deleted_at
+      changed_at = DateTime.parse(changed_at).in_time_zone if changed_at.is_a?(String)
+      Mutation.new(person, :deleted, changed_at)
     end
 
     def identify_kind(person)
