@@ -31,6 +31,9 @@ module HitobitoProNatura
 
       # sheets
       Sheet::Group.send :include, ProNatura::Sheet::Group
+
+      # serializer
+      PersonSerializer.send :include, ProNatura::PersonSerializer
     end
 
     initializer 'pro_natura.add_settings' do |_app|

@@ -5,14 +5,14 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_pro_natura.
 
-module ProNatura::Person
+#
+module ProNatura::PersonSerializer
   extend ActiveSupport::Concern
 
-  LANGUAGES = %w(DE FR IT)
-
   included do
-    Person::PUBLIC_ATTRS << :adress_nummer << :language
-
-    validates :language, inclusion: { in: LANGUAGES, allow_blank: true }
+    extension(:details) do |_|
+      map_properties :adress_nummer, :language
+    end
   end
+
 end

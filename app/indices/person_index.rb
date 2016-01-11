@@ -5,14 +5,6 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_pro_natura.
 
-module ProNatura::Person
-  extend ActiveSupport::Concern
-
-  LANGUAGES = %w(DE FR IT)
-
-  included do
-    Person::PUBLIC_ATTRS << :adress_nummer << :language
-
-    validates :language, inclusion: { in: LANGUAGES, allow_blank: true }
-  end
+ThinkingSphinx::Index.define_partial :person do
+  indexes adress_nummer, language
 end
