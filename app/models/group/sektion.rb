@@ -14,7 +14,7 @@ class Group::Sektion < ::Group
   ### ROLES
 
   class Admin < ::Role
-    self.permissions = [:layer_and_below_full]
+    self.permissions = [:layer_and_below_full, :contact_data]
   end
 
   roles Admin
