@@ -56,7 +56,7 @@ de:
       group/jugendgruppe_gremium/leader:
         one: Leitung
       group/jugendgruppe_gremium/member:
-        one: Aktivmitglied
+        one: Mitglied
 
       group/jugendgruppe_passive/admin:
         one: Adressverwaltung
