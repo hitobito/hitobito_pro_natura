@@ -17,7 +17,6 @@ class Group::JugendgruppePassive < ::Group
 
   class Member < ::Role
     self.permissions = []
-    self.visible_from_above = false
   end
 
   roles Admin, Member
