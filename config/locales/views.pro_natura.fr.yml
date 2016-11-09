@@ -1,0 +1,51 @@
+#  Copyright (c) 2015-2016, Pro Natura. This file is part of
+#  hitobito_pro_natura and licensed under the Affero General Public License version 3
+#  or later. See the COPYING file at the top-level directory or at
+#  https://github.com/hitobito/hitobito_pro_natura.
+
+fr:
+  export/csv/people/mutations:
+    kind: type de mutation
+    kinds:
+      created: nouveau
+      updated: muté
+      deleted: 'effacé'
+    changed_at: date de mutation
+    changeset: mutation
+    primary_roles: rôles
+    role_changes: changement de rôle
+    primary_layer: niveau principal
+    primary_group: groupe principal
+    adress_nummer: adrnr
+    first_name: prénom1
+    last_name: nom1
+    address: rue
+    country: pays
+    zip_code: code postal
+    town: lieu
+    phone_number_private: 'numéro de téléphone'
+    phone_number_mobile: numéro de natel
+    email: e-mailp
+
+  groups:
+    tabs:
+      mutations: mutations
+
+  people:
+    language:
+      de: allemand
+      fr: français
+      it: italien
+
+  person:
+    mutations:
+      index:
+        since: Depuis
+        download_csv: télécharger le csv
+        invalid_date: 'Les données ne sont plus valables'
+        explanation: >
+            Ici, vous pouvez télécharger les fichiers csv qui contiennent des modifications
+            sur les personnes, à savoir nouveau membre, muté ou supprimé, depuis la
+            date indiquée. Les gens peuvent ensuite connaître les derniers changements
+            et exporter uniquement les attributs modifiés. Les membres passifs sont
+            exclus.

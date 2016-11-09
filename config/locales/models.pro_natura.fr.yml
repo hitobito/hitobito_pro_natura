@@ -1,0 +1,68 @@
+#  Copyright (c) 2012-2015, Pro Natura. This file is part of
+#  hitobito_pro_natura and licensed under the Affero General Public License version 3
+#  or later. See the COPYING file at the top-level directory or at
+#  https://github.com/hitobito/hitobito_pro_natura.
+
+fr:
+  activerecord:
+
+    models:
+      ### GROUPS
+
+      group/dachverband:
+        one: secrétariat central
+        other: secrétariat central
+      group/dachverband_gremium:
+        one: institutions
+        other: institutions
+      group/sektion:
+        one: Section
+        other: Sections
+      group/jugendgruppe:
+        one: groupes de jeunes
+        other: groupes de jeunes
+      group/jugendgruppe_gremium:
+        one: institution
+        other: institutions
+      group/jugendgruppe_passive:
+        one: externe/aide/membre passif
+        other: externes/aides/membres passifs
+      ### ROLES
+
+      group/dachverband/pl_jugend:
+        one: chef(fe) de projet
+        other: Chef(fe)s de projet jeunesse
+      group/dachverband_gremium/leader:
+        one: moniteur-rice
+        other: moniteurs-trices
+      group/dachverband_gremium/member:
+        one: membre
+        other: membres
+      group/sektion/admin:
+        one: 'gestion '
+        other: gestion des sections
+      group/jugendgruppe/admin:
+        one: responsable
+        other: responsable
+      group/jugendgruppe/leader:
+        one: moniteur-trice
+        other: moniteurs-trices
+      group/jugendgruppe/member:
+        one: membre actif
+        other: membres actifs
+      group/jugendgruppe_gremium/leader:
+        one: moniteur-trice
+        other: moniteurs-trices
+      group/jugendgruppe_gremium/member:
+        one: membres actifs
+        other: membres actifs
+      group/jugendgruppe_passive/admin:
+        one: gestion des adresses
+        other: gestion des adresses
+      group/jugendgruppe_passive/member:
+        one: membre passif/externe/aide
+        other: membres passifs/externes/aides
+    attributes:
+      person:
+        language: Langue
+        adress_nummer: Numéro d'adresse
