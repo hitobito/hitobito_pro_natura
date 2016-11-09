@@ -25,10 +25,12 @@ describe Export::Csv::People::Mutations do
   context '#csv', versioning: true do
     let(:p1) { Fabricate(Group::Jugendgruppe::Member.name, group: groups(:thun)).person }
     let(:p2) { Fabricate(Group::Jugendgruppe::Member.name, group: groups(:thun)).person }
+    let(:p3) { Fabricate(Group::Jugendgruppe::Member.name, group: groups(:thun)).person }
 
     let(:mutations) do
       [Person::Mutations::Mutation.new(p1, :created, p1.created_at, p1.versions.last.changeset, 1.week.ago),
-       Person::Mutations::Mutation.new(p2, :updated, p2.created_at, p2.roles.first.versions.last.changeset, 1.week.ago)]
+       Person::Mutations::Mutation.new(p2, :updated, p2.created_at, p2.roles.first.versions.last.changeset, 1.week.ago),
+       Person::Mutations::Mutation.new(p3, :deleted, p3.created_at)]
     end
 
     subject { [].tap { |g| exporter.to_csv(g) } }
@@ -55,6 +57,11 @@ describe Export::Csv::People::Mutations do
                                     'Aktivmitglied', 'ja', 'Thun "Alpendohlen"', 'Thun "Alpendohlen"',
                                     nil, p1.first_name, p1.last_name, p1.address, p1.country,
                                     p1.zip_code, p1.town, nil, '123', p1.email])
+
+      expect(subject.fourth).to eq(['gelöscht', p3.created_at, '',
+                                    'Aktivmitglied', nil, 'Thun "Alpendohlen"', 'Thun "Alpendohlen"',
+                                    nil, p3.first_name, p3.last_name, p3.address, p3.country,
+                                    p3.zip_code, p3.town, nil, nil, p3.email])
     end
 
     it 'renders changeset of role' do

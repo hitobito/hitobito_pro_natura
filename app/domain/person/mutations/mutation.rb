@@ -22,7 +22,11 @@ module Person::Mutations
       @changeset = changeset
       store_attrs(person)
       store_phone_numbers(person)
-      store_primary_group_info(person, since) unless kind == :deleted
+      if kind == :deleted
+        store_last_group_info(person, since)
+      else
+        store_primary_group_info(person, since)
+      end
     end
 
     def to_s
@@ -49,8 +53,24 @@ module Person::Mutations
       @role_changes = fetch_role_changes(person, since) if since
     end
 
+    def store_last_group_info(person, since)
+      last_role = fetch_last_role(person)
+      if last_role
+        @primary_roles = [last_role.to_s]
+        @primary_layer = last_role.group.try(:layer_group).to_s
+        @primary_group = last_role.group.to_s
+        @role_changes = fetch_role_changes(person, since) if since
+      else
+        @primary_roles = []
+      end
+    end
+
     def fetch_primary_roles(person)
       person.roles.select { |r| r.group_id == person.primary_group_id }
+    end
+
+    def fetch_last_role(person)
+      person.roles.with_deleted.order('deleted_at DESC').first
     end
 
     def fetch_primary_layer(person)

@@ -29,7 +29,7 @@ describe Person::Mutations::Mutation do
   end
 
   it 'resolves roles' do
-    expect(subject.primary_roles).to eq(['Aktivmitglied'])
+    expect(subject.primary_roles).to eq(['Mitglied'])
   end
 
   it 'resolves role changes' do
