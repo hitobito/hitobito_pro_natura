@@ -35,8 +35,8 @@ de:
         other: PL Jugend
 
       group/dachverband_gremium/leader:
-        one: Leitung
-        other: Leitung
+        one: Leiter/in
+        other: Leiter/innen
       group/dachverband_gremium/member:
         one: Mitglied
         other: Mitglieder
@@ -49,15 +49,15 @@ de:
         one: Verantwortliche/r
         other: Verantwortliche
       group/jugendgruppe/leader:
-        one: Leitung
-        other: Leitung
+        one: Leiter/in
+        other: Leiter/innen
       group/jugendgruppe/member:
         one: Aktivmitglied
         other: Aktivmitglieder
 
       group/jugendgruppe_gremium/leader:
-        one: Leitung
-        other: Leitung
+        one: Leiter/in
+        other: Leiter/innen
       group/jugendgruppe_gremium/member:
         one: Aktivmitglied
         other: Aktivmitglieder
