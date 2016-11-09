@@ -59,8 +59,8 @@ de:
         one: Leiter/in
         other: Leiter/innen
       group/jugendgruppe_gremium/member:
-        one: Aktivmitglied
-        other: Aktivmitglieder
+        one: Mitglied
+        other: Mitglieder
 
       group/jugendgruppe_passive/admin:
         one: Adressverwaltung
