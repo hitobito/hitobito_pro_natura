@@ -33,7 +33,7 @@ fr:
         one: chef(fe) de projet
         other: Chef(fe)s de projet jeunesse
       group/dachverband_gremium/leader:
-        one: moniteur-rice
+        one: moniteur-trice
         other: moniteurs-trices
       group/dachverband_gremium/member:
         one: membre
@@ -54,8 +54,8 @@ fr:
         one: moniteur-trice
         other: moniteurs-trices
       group/jugendgruppe_gremium/member:
-        one: membres actifs
-        other: membres actifs
+        one: membre
+        other: membres
       group/jugendgruppe_passive/admin:
         one: gestion des adresses
         other: gestion des adresses

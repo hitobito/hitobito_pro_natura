@@ -10,21 +10,22 @@ of Pro Natura.
   * Dachverband
     * PL Jugend: [:layer_and_below_full, :admin, :contact_data]
   * Gremium
-    * Leitung: [:layer_and_below_read, :group_and_below_full, :contact_data]
+    * Leiter/in: [:layer_and_below_read, :group_and_below_full, :contact_data]
     * Mitglied: [:layer_read, :contact_data]
 * Sektion
   * Sektion
-    * Sektionsverwaltung: [:layer_and_below_full]
+    * Sektionsverwaltung: [:layer_and_below_full, :contact_data]
 * Jugendgruppe
   * Jugendgruppe
-    * Leitung: [:layer_and_below_read, :contact_data]
+    * Leiter/in: [:layer_and_below_read, :contact_data]
     * Aktivmitglied: []
     * Verantwortliche/r: [:layer_and_below_full, :contact_data]
   * Gremium
-    * Leitung: [:group_and_below_full]
-    * Aktivmitglied: [:group_and_below_read]
+    * Leiter/in: [:group_and_below_full]
+    * Mitglied: [:group_and_below_read]
   * Externe/Helfer/Passivmitglieder
     * Adressverwaltung: [:group_and_below_full]
     * Passivmitglied/Extern/Hilfsperson: []
+
 
 (Output of rake app:hitobito:roles)
