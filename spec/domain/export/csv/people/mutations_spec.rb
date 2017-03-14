@@ -69,7 +69,7 @@ describe Export::Csv::People::Mutations do
          'Type: nil -> "Group::Jugendgruppe::Member", ' \
          "Group: nil -> #{groups(:thun).id}, " \
          "Person: nil -> #{p2.id}, " \
-         "Erstellt: nil -> #{p2.roles.first.created_at.utc.inspect}, " \
+         "Erstellt: nil -> #{p2.roles.first.created_at.inspect}, " \
          "Id: nil -> #{p2.roles.first.id}")
     end
 
