@@ -23,7 +23,7 @@ class Person::MutationsController < ApplicationController
   private
 
   def csv
-    Export::Csv::People::Mutations.export(mutations.fetch)
+    Export::Tabular::People::Mutations.csv(mutations.fetch)
   end
 
   def mutations

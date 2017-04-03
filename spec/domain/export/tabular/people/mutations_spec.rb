@@ -7,7 +7,7 @@
 
 require 'spec_helper'
 
-describe Export::Csv::People::Mutations do
+describe Export::Tabular::People::Mutations do
 
   let(:mutations) { [] }
 
@@ -33,10 +33,10 @@ describe Export::Csv::People::Mutations do
        Person::Mutations::Mutation.new(p3, :deleted, p3.created_at)]
     end
 
-    subject { [].tap { |g| exporter.to_csv(g) } }
+    subject { exporter.data_rows.to_a }
 
     it 'renders complete header' do
-      expect(subject.first).to eq(['Mutationsart', 'Mutationsdatum', 'Mutation', 'Rollen',
+      expect(exporter.labels).to eq(['Mutationsart', 'Mutationsdatum', 'Mutation', 'Rollen',
                                    'Rollenanpassung', 'Hauptebene', 'Hauptgruppe',
                                    'adrnr', 'vorname1', 'nachname1', 'strasse', 'land',
                                    'plz', 'ort', 'telp', 'mobilep', 'emailp'])
@@ -53,24 +53,28 @@ describe Export::Csv::People::Mutations do
         email: 'Haupt-E-Mail'
       }.collect { |attr, label| "#{label}: nil -> \"#{p1.send(attr)}\"" }.join(', ')
 
-      expect(subject.second).to eq(['neu', p1.created_at, changeset,
+      expect(subject.first).to eq(['neu', format_date_time(p1.created_at), changeset,
                                     'Aktivmitglied', 'ja', 'Thun "Alpendohlen"', 'Thun "Alpendohlen"',
                                     nil, p1.first_name, p1.last_name, p1.address, p1.country,
                                     p1.zip_code, p1.town, nil, '123', p1.email])
 
-      expect(subject.fourth).to eq(['gelöscht', p3.created_at, '',
+      expect(subject.third).to eq(['gelöscht', format_date_time(p3.created_at), '',
                                     'Aktivmitglied', nil, 'Thun "Alpendohlen"', 'Thun "Alpendohlen"',
                                     nil, p3.first_name, p3.last_name, p3.address, p3.country,
                                     p3.zip_code, p3.town, nil, nil, p3.email])
     end
 
     it 'renders changeset of role' do
-      expect(subject.third[2]).to eq(
+      expect(subject.second[2]).to eq(
          'Type: nil -> "Group::Jugendgruppe::Member", ' \
          "Group: nil -> #{groups(:thun).id}, " \
          "Person: nil -> #{p2.id}, " \
-         "Erstellt: nil -> #{p2.roles.first.created_at.utc.inspect}, " \
+         "Erstellt: nil -> #{p2.roles.first.created_at.inspect}, " \
          "Id: nil -> #{p2.roles.first.id}")
+    end
+
+    def format_date_time(value)
+      "#{I18n.l(value.to_date)} #{I18n.l(value, format: :time)}"
     end
 
   end

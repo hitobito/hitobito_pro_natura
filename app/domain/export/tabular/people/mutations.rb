@@ -6,8 +6,8 @@
 #  https://github.com/hitobito/hitobito_pro_natura.
 
 
-module Export::Csv::People
-  class Mutations < Export::Csv::Base
+module Export::Tabular::People
+  class Mutations < Export::Tabular::Base
 
     include Translatable
 

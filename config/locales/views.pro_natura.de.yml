@@ -4,7 +4,7 @@
 #  https://github.com/hitobito/hitobito_pro_natura.
 
 de:
-  export/csv/people/mutations:
+  export/tabular/people/mutations:
     kind: Mutationsart
     kinds:
       created: neu

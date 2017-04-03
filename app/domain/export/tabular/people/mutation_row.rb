@@ -6,8 +6,8 @@
 #  https://github.com/hitobito/hitobito_pro_natura.
 
 
-module Export::Csv::People
-  class MutationRow < Export::Csv::Row
+module Export::Tabular::People
+  class MutationRow < Export::Tabular::Row
 
     def primary_roles
       entry.primary_roles.collect(&:to_s).join(', ')
@@ -20,7 +20,7 @@ module Export::Csv::People
     end
 
     def kind
-      I18n.t("export/csv/people/mutations.kinds.#{entry.kind}")
+      I18n.t("export/tabular/people/mutations.kinds.#{entry.kind}")
     end
 
   end
