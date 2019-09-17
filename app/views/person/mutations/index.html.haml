@@ -8,7 +8,7 @@
 = form_tag({ format: :csv }, method: :get, class: 'form-inline') do
   = label_tag(:since, t('.since'), class: 'control-label')
   .input-prepend
-    %span.add-on= icon(:calendar)
+    %span.add-on= icon(:'calendar-alt')
     = text_field_tag(:since, params[:since], class: 'span2 date')
 
   = submit_tag(t('.download_csv'), class: 'btn')
