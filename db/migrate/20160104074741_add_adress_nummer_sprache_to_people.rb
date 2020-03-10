@@ -5,7 +5,7 @@
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_pro_natura.
 
-class AddAdressNummerSpracheToPeople < ActiveRecord::Migration
+class AddAdressNummerSpracheToPeople < ActiveRecord::Migration[4.2]
   def change
     add_column :people, :adress_nummer, :string
     add_column :people, :language, :string, limit: 2
