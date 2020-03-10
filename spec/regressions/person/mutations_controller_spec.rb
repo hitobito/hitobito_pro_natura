@@ -16,32 +16,32 @@ describe Person::MutationsController, type: :controller do
   context 'GET index' do
     context '.html' do
       it 'renders view' do
-        get :index, group_id: groups(:root).id
+        get :index, params: { group_id: groups(:root).id }
         is_expected.to render_template('index')
       end
 
       it 'is not allowed for non-root groups' do
         expect do
-          get :index, group_id: groups(:thun).id
+          get :index, params: { group_id: groups(:thun).id }
         end.to raise_error(CanCan::AccessDenied)
       end
     end
 
     context '.csv' do
       it 'render html view if since is missing' do
-        get :index, group_id: groups(:root).id, format: :csv
+        get :index, params: { group_id: groups(:root).id }, format: :csv
         is_expected.to render_template('index')
         expect(flash.now[:alert]).to be_present
       end
 
       it 'render html view if since is not a valid date' do
-        get :index, group_id: groups(:root).id, since: '33.33.33', format: :csv
+        get :index, params: { group_id: groups(:root).id, since: '33.33.33' }, format: :csv
         is_expected.to render_template('index')
         expect(flash.now[:alert]).to be_present
       end
 
       it 'renders csv' do
-        get :index, group_id: groups(:root).id, since: '1.1.2016', format: :csv
+        get :index, params: { group_id: groups(:root).id, since: '1.1.2016' }, format: :csv
         expect(response.body).to match(/Mutationsart/)
       end
     end
