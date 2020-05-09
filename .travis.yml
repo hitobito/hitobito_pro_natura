@@ -16,9 +16,9 @@ rvm:
 install:
   - unset BUNDLE_GEMFILE # we bundle in different directories
   - cd .. && git clone https://github.com/hitobito/hitobito_youth.git hitobito_youth
-  - cd hitobito_youth && git checkout -f rails-5
+  - cd hitobito_youth && git checkout master
   - cd .. && git clone https://github.com/hitobito/hitobito.git hitobito
-  - cd hitobito && git checkout -f rails-5
+  - cd hitobito && git checkout master
   - export HITOBITO_CORE_DIR=$PWD
   - cp -v Wagonfile.ci Wagonfile
   - rvm use $TRAVIS_RUBY_VERSION --fuzzy
