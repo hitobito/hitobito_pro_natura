@@ -17,7 +17,7 @@ describe Person::Mutations::Fetcher, versioning: true do
     Fabricate(Group::Sektion::Admin.name, group: groups(:be), person: @multi_roles)
     @before = create_past
     @phone_changed = create_past
-    @phone_changed.phone_numbers.create!(number: '123', label: 'Privat')
+    @phone_changed.phone_numbers.create!(number: '+41790000000', label: 'Privat')
     @role_added = create_past
     Fabricate(Group::Sektion::Admin.name, group: groups(:be), person: @role_added)
     @role_deleted = create_past([Group::Jugendgruppe::Member, groups(:thun)], [Group::Sektion::Admin, groups(:be)])
@@ -116,7 +116,7 @@ describe Person::Mutations::Fetcher, versioning: true do
     it 'contains changeset for phone number' do
       modification = subject.find { |m| m.id == @phone_changed.id }
       expect(modification.kind).to eq(:updated)
-      expect(modification.changeset['number']).to eq([nil, '123'])
+      expect(modification.changeset['number']).to eq([nil, '+41790000000'])
       expect(modification.changeset['label']).to eq([nil, 'Privat'])
       expect(modification.role_changes).to eq(false)
     end

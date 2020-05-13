@@ -15,8 +15,8 @@ describe Person::Mutations::Mutation do
   subject { Person::Mutations::Mutation.new(person, :created, Time.zone.now, {}, 1.month.ago) }
 
   it 'resolves phone number' do
-    person.phone_numbers.create!(number: '123', label: 'Privat')
-    expect(subject.phone_number_private).to eq('123')
+    person.phone_numbers.create!(number: '+41790000000', label: 'Privat')
+    expect(subject.phone_number_private).to eq('+41790000000')
     expect(subject.phone_number_mobile).to be_nil
   end
 

@@ -43,8 +43,8 @@ describe Export::Tabular::People::Mutations do
     end
 
     it 'renders all values' do
-      p1.phone_numbers.create!(number: '123', label: 'Mobil')
-      p2.phone_numbers.create!(number: '123', label: 'Arbeit')
+      p1.phone_numbers.create!(number: '+41790000000', label: 'Mobil')
+      p2.phone_numbers.create!(number: '+41791111111', label: 'Arbeit')
 
       changeset = {
         first_name: 'Vorname',
@@ -56,7 +56,7 @@ describe Export::Tabular::People::Mutations do
       expect(subject.first).to eq(['neu', format_date_time(p1.created_at), changeset,
                                     'Aktivmitglied', 'ja', 'Thun "Alpendohlen"', 'Thun "Alpendohlen"',
                                     nil, p1.first_name, p1.last_name, p1.address, p1.country,
-                                    p1.zip_code, p1.town, nil, '123', p1.email])
+                                    p1.zip_code, p1.town, nil, '+41790000000', p1.email])
 
       expect(subject.third).to eq(['gelöscht', format_date_time(p3.created_at), '',
                                     'Aktivmitglied', nil, 'Thun "Alpendohlen"', 'Thun "Alpendohlen"',
