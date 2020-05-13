@@ -66,11 +66,11 @@ describe Export::Tabular::People::Mutations do
 
     it 'renders changeset of role' do
       expect(subject.second[2]).to eq(
-         'Type: nil -> "Group::Jugendgruppe::Member", ' \
-         "Group: nil -> #{groups(:thun).id}, " \
+         "Id: nil -> #{p2.roles.first.id}" \
          "Person: nil -> #{p2.id}, " \
-         "Erstellt: nil -> #{p2.roles.first.created_at.inspect}, " \
-         "Id: nil -> #{p2.roles.first.id}")
+         "Group: nil -> #{groups(:thun).id}, " \
+         'Type: nil -> "Group::Jugendgruppe::Member", ' \
+         "Erstellt: nil -> #{p2.roles.first.created_at.inspect}, ")
     end
 
     def format_date_time(value)
