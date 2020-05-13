@@ -54,7 +54,7 @@ module Person::Mutations
       Person.
         joins(:roles).
         where.not(roles: { type: EXCLUDED_ROLES }).
-        uniq
+        distinct
     end
 
     def add_modified_person(person)
