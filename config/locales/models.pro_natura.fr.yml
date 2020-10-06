@@ -1,14 +1,6 @@
-#  Copyright (c) 2012-2015, Pro Natura. This file is part of
-#  hitobito_pro_natura and licensed under the Affero General Public License version 3
-#  or later. See the COPYING file at the top-level directory or at
-#  https://github.com/hitobito/hitobito_pro_natura.
-
 fr:
   activerecord:
-
     models:
-      ### GROUPS
-
       group/dachverband:
         one: secrétariat central
         other: secrétariat central
@@ -19,7 +11,7 @@ fr:
         one: Section
         other: Sections
       group/jugendgruppe:
-        one: groupes de jeunes
+        one: groupe de jeunes
         other: groupes de jeunes
       group/jugendgruppe_gremium:
         one: institution
@@ -27,8 +19,6 @@ fr:
       group/jugendgruppe_passive:
         one: externe/aide/membre passif
         other: externes/aides/membres passifs
-      ### ROLES
-
       group/dachverband/pl_jugend:
         one: chef(fe) de projet
         other: Chef(fe)s de projet jeunesse

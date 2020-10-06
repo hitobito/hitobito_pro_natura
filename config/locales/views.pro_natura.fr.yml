@@ -1,10 +1,5 @@
-#  Copyright (c) 2015-2016, Pro Natura. This file is part of
-#  hitobito_pro_natura and licensed under the Affero General Public License version 3
-#  or later. See the COPYING file at the top-level directory or at
-#  https://github.com/hitobito/hitobito_pro_natura.
-
 fr:
-  export/csv/people/mutations:
+  export/tabular/people/mutations:
     kind: type de mutation
     kinds:
       created: nouveau
@@ -23,20 +18,17 @@ fr:
     country: pays
     zip_code: code postal
     town: lieu
-    phone_number_private: 'numéro de téléphone'
+    phone_number_private: 'numéro de téléphone '
     phone_number_mobile: numéro de natel
     email: e-mailp
-
   groups:
     tabs:
       mutations: mutations
-
   people:
     language:
       de: allemand
       fr: français
       it: italien
-
   person:
     mutations:
       index:
