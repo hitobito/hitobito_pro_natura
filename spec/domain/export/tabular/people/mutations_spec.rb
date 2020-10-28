@@ -56,7 +56,7 @@ describe Export::Tabular::People::Mutations do
       expect(subject.first).to eq(['neu', format_date_time(p1.created_at), changeset,
                                     'Aktivmitglied', 'ja', 'Thun "Alpendohlen"', 'Thun "Alpendohlen"',
                                     nil, p1.first_name, p1.last_name, p1.address, p1.country,
-                                    p1.zip_code, p1.town, nil, '+41790000000', p1.email])
+                                    p1.zip_code, p1.town, nil, '+41 79 000 00 00', p1.email])
 
       expect(subject.third).to eq(['gelöscht', format_date_time(p3.created_at), '',
                                     'Aktivmitglied', nil, 'Thun "Alpendohlen"', 'Thun "Alpendohlen"',
@@ -66,11 +66,11 @@ describe Export::Tabular::People::Mutations do
 
     it 'renders changeset of role' do
       expect(subject.second[2]).to eq(
-         "Id: nil -> #{p2.roles.first.id}" \
+         "Id: nil -> #{p2.roles.first.id}, " \
          "Person: nil -> #{p2.id}, " \
          "Group: nil -> #{groups(:thun).id}, " \
          'Type: nil -> "Group::Jugendgruppe::Member", ' \
-         "Erstellt: nil -> #{p2.roles.first.created_at.inspect}, ")
+         "Erstellt: nil -> #{p2.roles.first.created_at.inspect}")
     end
 
     def format_date_time(value)

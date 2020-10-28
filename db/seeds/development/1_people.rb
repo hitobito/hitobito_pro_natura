@@ -18,13 +18,15 @@ class ProNaturaPersonSeeder < PersonSeeder
 
 end
 
-puzzlers = ['Pascal Zumkehr',
-            'Pierre Fritsch',
-            'Andreas Maierhofer',
-            'Mathis Hofer',
-            'Andre Kunz',
-            'Pascal Simon',
-            'Roland Studer']
+puzzlers = [
+  'Andre Kunz',
+  'Andreas Maierhofer',
+  'Mathis Hofer',
+  'Matthias Viehweger',
+  'Pascal Simon',
+  'Pascal Zumkehr',
+  'Roland Studer',
+]
 
 devs = {'Fabian Lippuner' => 'fabian.lippuner@pronatura.ch'}
 puzzlers.each do |puz|

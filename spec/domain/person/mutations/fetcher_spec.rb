@@ -116,7 +116,7 @@ describe Person::Mutations::Fetcher, versioning: true do
     it 'contains changeset for phone number' do
       modification = subject.find { |m| m.id == @phone_changed.id }
       expect(modification.kind).to eq(:updated)
-      expect(modification.changeset['number']).to eq([nil, '+41790000000'])
+      expect(modification.changeset['number']).to eq([nil, '+41 79 000 00 00'])
       expect(modification.changeset['label']).to eq([nil, 'Privat'])
       expect(modification.role_changes).to eq(false)
     end
@@ -135,7 +135,7 @@ describe Person::Mutations::Fetcher, versioning: true do
       role = @role_deleted.roles.with_deleted.find { |r| r.group_id == groups(:thun).id }
       expect(modification.changed_at).to be_within(0.01).of(role.deleted_at)
       expect(modification.kind).to eq(:updated)
-      expect(modification.changeset).to eq({})
+      expect(modification.changeset.keys).to have(7).items
       #binding.pry
       expect(modification.role_changes).to eq(true)
     end
