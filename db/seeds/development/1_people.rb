@@ -41,3 +41,5 @@ root = Group.root
 devs.each do |name, email|
   seeder.seed_developer(name, email, root, Group::Dachverband::PlJugend)
 end
+
+seeder.assign_role_to_root(root, Group::Dachverband::PlJugend)
