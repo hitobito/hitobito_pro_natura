@@ -10,16 +10,15 @@ require 'spec_helper'
 describe Person do
 
   describe '#language' do
-    it 'accepts values DE FR IT' do
-      %w(DE FR IT).each do |value|
+    it 'accepts values de fr it' do
+      %w(de fr it).each do |value|
         person = Person.new(last_name: 'dummy', language: value)
         expect(person).to be_valid
       end
     end
 
-    it 'accepts blank and nil values' do
-      expect(Person.new(last_name: 'dummy')).to be_valid
-      expect(Person.new(last_name: 'dummy', language: '')).to be_valid
+    it 'does not accept blank value' do
+      expect(Person.new(last_name: 'dummy', language: '')).to_not be_valid
     end
 
     it 'rejects any other value' do

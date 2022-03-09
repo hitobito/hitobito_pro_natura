@@ -8,6 +8,9 @@
 class AddAdressNummerSpracheToPeople < ActiveRecord::Migration[4.2]
   def change
     add_column :people, :adress_nummer, :string
-    add_column :people, :language, :string, limit: 2
+
+    unless ActiveRecord::Base.connection.column_exists?(:people, :language)
+      add_column :people, :language, :string, limit: 2
+    end
   end
 end

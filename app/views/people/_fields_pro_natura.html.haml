@@ -5,8 +5,3 @@
 
 = field_set_tag do
   = f.labeled_input_fields(:adress_nummer)
-  = f.labeled_collection_select(:language,
-                                person_languages,
-                                :first, :second,
-                                { include_blank: true },
-                                { class: 'span6' })

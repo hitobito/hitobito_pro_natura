@@ -8,11 +8,7 @@
 module ProNatura::Person
   extend ActiveSupport::Concern
 
-  LANGUAGES = %w(DE FR IT)
-
   included do
-    Person::PUBLIC_ATTRS << :adress_nummer << :language
-
-    validates :language, inclusion: { in: LANGUAGES, allow_blank: true }
+    Person::PUBLIC_ATTRS << :adress_nummer
   end
 end

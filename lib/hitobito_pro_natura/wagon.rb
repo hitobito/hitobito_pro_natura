@@ -24,7 +24,7 @@ module HitobitoProNatura
       Person.send :include, ProNatura::Person
 
       # controller
-      PeopleController.permitted_attrs += [:adress_nummer, :language]
+      PeopleController.permitted_attrs += [:adress_nummer]
 
       # abilities
       GroupAbility.send :include, ProNatura::GroupAbility
