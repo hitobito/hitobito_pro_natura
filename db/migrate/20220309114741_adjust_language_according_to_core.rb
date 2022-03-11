@@ -9,6 +9,8 @@ class AdjustLanguageAccordingToCore < ActiveRecord::Migration[6.1]
   def change
     change_column_null(:people, :language, false, 'de')
 
+    Person.where(language: '').update(language: 'de')
+
     Person.find_each do |person|
       person.update!(language: person.language.downcase)
     end
