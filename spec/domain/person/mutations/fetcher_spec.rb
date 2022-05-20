@@ -13,7 +13,7 @@ describe Person::Mutations::Fetcher, versioning: true do
     @created = Fabricate(Group::Jugendgruppe::Member.name, group: groups(:thun)).person
     @updated = Fabricate(Group::Jugendgruppe::Member.name, group: groups(:thun)).person
     @updated.update_column(:created_at, 1.year.ago)
-    @multi_roles = Fabricate(Group::Jugendgruppe::Member.name, group: groups(:thun), deleted_at: 1.month.ago).person
+    @multi_roles = Fabricate(Group::Jugendgruppe::Member.name, group: groups(:thun), created_at: 2.months.ago, deleted_at: 1.month.ago).person
     Fabricate(Group::Sektion::Admin.name, group: groups(:be), person: @multi_roles)
     @before = create_past
     @phone_changed = create_past
@@ -24,15 +24,15 @@ describe Person::Mutations::Fetcher, versioning: true do
     @role_deleted.roles.where(group: groups(:thun)).destroy_all
     @primary_group_changed = create_past([Group::Jugendgruppe::Member, groups(:thun)], [Group::Sektion::Admin, groups(:be)])
     @primary_group_changed.update!(primary_group_id: groups(:be).id)
-    @deleted = Fabricate(Group::Jugendgruppe::Member.name, group: groups(:thun), deleted_at: 1.month.ago).person
-    @deleted_longtime = Fabricate(Group::Jugendgruppe::Member.name, group: groups(:thun), deleted_at: 1.year.ago).person
-    @deleted_multi = Fabricate(Group::Jugendgruppe::Member.name, group: groups(:thun), deleted_at: 1.year.ago).person
-    Fabricate(Group::Sektion::Admin.name, group: groups(:be), deleted_at: 1.month.ago, person: @deleted_multi)
+    @deleted = Fabricate(Group::Jugendgruppe::Member.name, group: groups(:thun), created_at: 2.months.ago, deleted_at: 1.month.ago).person
+    @deleted_longtime = Fabricate(Group::Jugendgruppe::Member.name, group: groups(:thun), created_at: 2.years.ago, deleted_at: 1.year.ago).person
+    @deleted_multi = Fabricate(Group::Jugendgruppe::Member.name, group: groups(:thun), created_at: 2.years.ago, deleted_at: 1.year.ago).person
+    Fabricate(Group::Sektion::Admin.name, group: groups(:be), created_at: 2.months.ago, deleted_at: 1.month.ago, person: @deleted_multi)
     @passive = Fabricate(Group::JugendgruppePassive::Member.name, group: groups(:thun_passive)).person
     @passive_deleted = Fabricate(Group::JugendgruppePassive::Member.name, group: groups(:thun_passive)).person
-    Fabricate(Group::Jugendgruppe::Member.name, group: groups(:thun), person: @passive_deleted, deleted_at: 1.year.ago)
-    @passive_deleted_recently = Fabricate(Group::Jugendgruppe::Member.name, group: groups(:thun), deleted_at: 1.year.ago).person
-    Fabricate(Group::JugendgruppePassive::Member.name, group: groups(:thun_passive), person: @passive_deleted_recently, deleted_at: 1.month.ago)
+    Fabricate(Group::Jugendgruppe::Member.name, group: groups(:thun), person: @passive_deleted, created_at: 2.years.ago, deleted_at: 1.year.ago)
+    @passive_deleted_recently = Fabricate(Group::Jugendgruppe::Member.name, group: groups(:thun), created_at: 2.years.ago, deleted_at: 1.year.ago).person
+    Fabricate(Group::JugendgruppePassive::Member.name, group: groups(:thun_passive), person: @passive_deleted_recently, created_at: 2.months.ago, deleted_at: 1.month.ago)
   end
 
   def create_past(*roles)
