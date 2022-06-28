@@ -3,54 +3,71 @@ fr:
     models:
       group/dachverband:
         one: secrétariat central
+        many: secrétariat central
         other: secrétariat central
       group/dachverband_gremium:
         one: institutions
+        many: institutions
         other: institutions
       group/sektion:
         one: Section
+        many: Sections
         other: Sections
       group/jugendgruppe:
         one: groupe de jeunes
+        many: groupes de jeunes
         other: groupes de jeunes
       group/jugendgruppe_gremium:
         one: institution
+        many: institutions
         other: institutions
       group/jugendgruppe_passive:
         one: externe/aide/membre passif
+        many: externes/aides/membres passifs
         other: externes/aides/membres passifs
       group/dachverband/pl_jugend:
         one: chef(fe) de projet
+        many: Chef(fe)s de projet jeunesse
         other: Chef(fe)s de projet jeunesse
       group/dachverband_gremium/leader:
         one: moniteur-trice
+        many: moniteurs-trices
         other: moniteurs-trices
       group/dachverband_gremium/member:
         one: membre
+        many: membres
         other: membres
       group/sektion/admin:
         one: 'gestion '
+        many: gestion des sections
         other: gestion des sections
       group/jugendgruppe/admin:
         one: responsable
+        many: responsable
         other: responsable
       group/jugendgruppe/leader:
         one: moniteur-trice
+        many: moniteurs-trices
         other: moniteurs-trices
       group/jugendgruppe/member:
         one: membre actif
+        many: membres actifs
         other: membres actifs
       group/jugendgruppe_gremium/leader:
         one: moniteur-trice
+        many: moniteurs-trices
         other: moniteurs-trices
       group/jugendgruppe_gremium/member:
         one: membre
+        many: membres
         other: membres
       group/jugendgruppe_passive/admin:
         one: gestion des adresses
+        many: gestion des adresses
         other: gestion des adresses
       group/jugendgruppe_passive/member:
         one: membre passif/externe/aide
+        many: membres passifs/externes/aides
         other: membres passifs/externes/aides
     attributes:
       person:
