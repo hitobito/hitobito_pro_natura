@@ -7,7 +7,8 @@
 # Settings relevant for the hitobito_pro_natura wagon
 # Overrides settings from the main application
 application:
-  additional_languages:
+  languages:
+    de: Deutsch
     fr: Français
     it: Italiano
 
