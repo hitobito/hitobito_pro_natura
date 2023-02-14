@@ -1,14 +1,13 @@
 [main]
 host = https://www.transifex.com
-type = YML
 
-[hitobito_pro_natura.views-pro_natura]
-file_filter = config/locales/views.pro_natura.<lang>.yml
-source_file = config/locales/views.pro_natura.de.yml
-source_lang = de
-
-[hitobito_pro_natura.models-pro_natura]
+[o:hitobito:p:hitobito_pro_natura:r:models-pro_natura]
 file_filter = config/locales/models.pro_natura.<lang>.yml
 source_file = config/locales/models.pro_natura.de.yml
+source_lang = de
+
+[o:hitobito:p:hitobito_pro_natura:r:views-pro_natura]
+file_filter = config/locales/views.pro_natura.<lang>.yml
+source_file = config/locales/views.pro_natura.de.yml
 source_lang = de
 
