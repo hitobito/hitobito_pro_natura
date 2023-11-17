@@ -136,7 +136,8 @@ describe Person::Mutations::Fetcher, versioning: true do
       expect(modification.changed_at).to be_within(0.01).of(role.deleted_at)
       expect(modification.kind).to eq(:updated)
       expect(modification.changeset.keys).to match_array %w(id person_id group_id type
-                                                            label created_at deleted_at archived_at delete_on)
+                                                            label created_at convert_on convert_to
+                                                            deleted_at archived_at delete_on)
       expect(modification.role_changes).to eq(true)
     end
 
