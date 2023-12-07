@@ -6,10 +6,11 @@
 %p= t('.explanation')
 
 = form_tag({ format: :csv }, method: :get, class: 'form-inline') do
-  = label_tag(:since, t('.since'), class: 'control-label')
-  .input-prepend
-    %span.add-on= icon(:'calendar-alt')
-    = text_field_tag(:since, params[:since], class: 'span2 date')
+  .control-group
+    = label_tag(:since, t('.since'), class: 'control-label')
+    .input-group
+      %div.input-group-prepend
+        %span.input-group-text= icon(:'calendar-alt')
+      = text_field_tag(:since, params[:since], class: 'span2 date form-control form-control-sm')
 
-  = submit_tag(t('.download_csv'), class: 'btn')
-
+  = submit_tag(t('.download_csv'), class: 'btn btn-sm btn-primary mb-1')
