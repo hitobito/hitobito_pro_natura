@@ -45,4 +45,57 @@ describe GroupAbility do
 
   end
 
+  context :group_and_below_read do
+    describe 'Mitglied Jugendgremium' do
+      let(:group) { groups(:kyburg) }
+      let(:role_name) { Group::JugendgruppeGremium::Member }
+
+      it 'may view details of himself' do
+        is_expected.to be_able_to(:show_full, role.person.reload)
+      end
+
+      it 'may update himself' do
+        is_expected.to be_able_to(:update, role.person.reload)
+        is_expected.to be_able_to(:update_email, role.person)
+      end
+
+      it 'may not update his role' do
+        is_expected.not_to be_able_to(:update, role)
+      end
+
+      it 'may not create other users' do
+        is_expected.not_to be_able_to(:create, Person)
+      end
+
+      it 'may not view others in same group' do
+        other = Fabricate(role_name.name, group: group)
+        is_expected.not_to be_able_to(:show, other.person.reload)
+      end
+
+      it 'may not view details of others in same group' do
+        other = Fabricate(role_name.name, group: group)
+        is_expected.not_to be_able_to(:show_details, other.person.reload)
+      end
+
+      it 'may not view full of others in same group' do
+        other = Fabricate(role_name.name, group: group)
+        is_expected.not_to be_able_to(:show_full, other.person.reload)
+      end
+
+      it 'may not view public role in same layer' do
+        other = Fabricate(role_name.name, group: group)
+        is_expected.not_to be_able_to(:show, other.person.reload)
+      end
+
+      it 'may not index same group' do
+        is_expected.not_to be_able_to(:index_people, group)
+        is_expected.not_to be_able_to(:index_local_people, group)
+        is_expected.not_to be_able_to(:index_full_people, group)
+      end
+
+      it 'may not create households' do
+        is_expected.to_not be_able_to(:create_households, Person)
+      end
+    end
+  end
 end

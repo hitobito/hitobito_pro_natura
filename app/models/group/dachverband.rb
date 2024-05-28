@@ -18,7 +18,7 @@ class Group::Dachverband < ::Group
   ### ROLES
 
   class PlJugend < ::Role
-    self.permissions = [:layer_and_below_full, :admin, :contact_data]
+    self.permissions = [:layer_and_below_full, :admin, :contact_data, :impersonation]
   end
 
   roles PlJugend
