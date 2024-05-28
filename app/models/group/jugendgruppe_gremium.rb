@@ -16,7 +16,7 @@ class Group::JugendgruppeGremium < ::Group
   end
 
   class Member < ::Role
-    self.permissions = [:group_and_below_read]
+    self.permissions = []
   end
 
   roles Leader, Member
