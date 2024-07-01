@@ -10,7 +10,7 @@ module Person::Mutations
   class Fetcher
 
     EXCLUDED_ROLES = [Group::JugendgruppePassive::Admin,
-                      Group::JugendgruppePassive::Member]
+                      Group::JugendgruppePassive::Member].map(&:sti_name)
 
     attr_reader :since
 
