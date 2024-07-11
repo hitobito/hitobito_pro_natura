@@ -1,13 +1,9 @@
-# encoding: utf-8
-
 #  Copyright (c) 2016, Pro Natura Schweiz. This file is part of
 #  hitobito_pro_natura and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
 #  https://github.com/hitobito/hitobito_pro_natura.
 
-
 class Person::MutationsController < ApplicationController
-
   before_action :authorize_action
 
   decorates :group
@@ -31,10 +27,10 @@ class Person::MutationsController < ApplicationController
   end
 
   def since
-    @since ||= Date.parse(params[:since] || '')
+    @since ||= Date.parse(params[:since] || "")
   rescue ArgumentError
-    flash.now[:alert] = I18n.t('person.mutations.index.invalid_date')
-    render 'index', formats: :html
+    flash.now[:alert] = I18n.t("person.mutations.index.invalid_date")
+    render "index", formats: :html
     nil
   end
 
@@ -45,5 +41,4 @@ class Person::MutationsController < ApplicationController
   def authorize_action
     authorize!(:index_mutations, group)
   end
-
 end

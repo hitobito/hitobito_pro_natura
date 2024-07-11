@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2016, Pro Natura Schweiz. This file is part of
 #  hitobito_pro_natura and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
@@ -8,9 +6,7 @@
 module Sheet
   class Person < Base
     class Mutation < Base
-
       self.parent_sheet = Sheet::Group
-
     end
   end
 end

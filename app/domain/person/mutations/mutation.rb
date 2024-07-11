@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2016 Pro Natura Schweiz. This file is part of
 #  hitobito_pro_natura and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
@@ -7,14 +5,13 @@
 
 module Person::Mutations
   class Mutation
-
     PERSON_ATTRS = [:id, :first_name, :last_name, :nickname, :address, :zip_code, :town, :country,
-                    :email, :adress_nummer]
+      :email, :adress_nummer]
 
     attr_reader :kind, :changed_at, :changeset,
-                :primary_roles, :primary_layer, :primary_group, :role_changes,
-                :phone_number_private, :phone_number_mobile,
-                *PERSON_ATTRS
+      :primary_roles, :primary_layer, :primary_group, :role_changes,
+      :phone_number_private, :phone_number_mobile,
+      *PERSON_ATTRS
 
     def initialize(person, kind, changed_at, changeset = {}, since = nil)
       @kind = kind
@@ -37,13 +34,13 @@ module Person::Mutations
 
     def store_attrs(person)
       PERSON_ATTRS.each do |attr|
-        instance_variable_set("@#{attr}", person.send(attr))
+        instance_variable_set(:"@#{attr}", person.send(attr))
       end
     end
 
     def store_phone_numbers(person)
-      @phone_number_private = fetch_phone_number(person, 'Privat')
-      @phone_number_mobile = fetch_phone_number(person, 'Mobil')
+      @phone_number_private = fetch_phone_number(person, "Privat")
+      @phone_number_mobile = fetch_phone_number(person, "Mobil")
     end
 
     def store_primary_group_info(person, since)
@@ -70,7 +67,7 @@ module Person::Mutations
     end
 
     def fetch_last_role(person)
-      person.roles.with_deleted.order('deleted_at DESC').first
+      person.roles.with_deleted.order("deleted_at DESC").first
     end
 
     def fetch_primary_layer(person)
@@ -86,6 +83,5 @@ module Person::Mutations
         r.created_at >= since || (r.deleted_at && r.deleted_at >= since)
       end
     end
-
   end
 end

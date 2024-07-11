@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 #  Copyright (c) 2016, Pro Natura Schweiz. This file is part of
 #  hitobito_pro_natura and licensed under the Affero General Public License version 3
 #  or later. See the COPYING file at the top-level directory or at
@@ -18,5 +16,4 @@ module ProNatura::GroupAbility
   def only_dachverband
     group.is_a?(Group::Dachverband)
   end
-
 end
