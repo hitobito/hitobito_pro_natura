@@ -67,7 +67,7 @@ module Person::Mutations
     end
 
     def fetch_last_role(person)
-      person.roles.with_deleted.order("deleted_at DESC").first
+      person.roles.with_inactive.order("end_on DESC").first
     end
 
     def fetch_primary_layer(person)
@@ -79,8 +79,8 @@ module Person::Mutations
     end
 
     def fetch_role_changes(person, since)
-      person.roles.with_deleted.any? do |r|
-        r.created_at >= since || (r.deleted_at && r.deleted_at >= since)
+      person.roles.with_inactive.any? do |r|
+        r.created_at >= since || r.end_on && r.end_on >= since.to_date
       end
     end
   end
