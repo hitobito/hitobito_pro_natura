@@ -25,16 +25,24 @@ module Person::Mutations
         .joins("INNER JOIN versions " \
               "ON versions.main_id = people.id AND versions.main_type = 'Person'")
         .where(versions: {created_at: since..})
+        .group("people.id")
+        .having(<<~SQL,
+          MAX(COALESCE(roles.end_on, '9999-01-01')) > :today
+        SQL
+          today: Date.current)
     end
 
     def deleted_people
-      Person
-        .where.not(id: people_with_roles)
-        .joins("INNER JOIN roles ON roles.person_id = people.id")
-        .where.not(roles: {type: EXCLUDED_ROLES})
-        .select("people.*, MAX(roles.deleted_at) AS deleted_at")
+      people_with_roles
+        .select("people.*, MAX(roles.end_on) AS deleted_at")
         .group("people.id")
-        .having("MAX(roles.deleted_at) >= ?", since)
+        .having(<<~SQL,
+          -- if the person has roles where end_on is NULL, we do not care about the real max(end_on)
+          -- as it ignores rows with NULL value, so we use coalesce to set it to a date in the future
+          MAX(COALESCE(roles.end_on, '9999-01-01')) BETWEEN :since AND :today
+        SQL
+          since: since.to_date,
+          today: Date.current)
     end
 
     private
@@ -50,7 +58,7 @@ module Person::Mutations
 
     def people_with_roles
       Person
-        .joins(:roles)
+        .joins("INNER JOIN roles ON roles.person_id = people.id")
         .where.not(roles: {type: EXCLUDED_ROLES})
         .distinct
     end
@@ -62,8 +70,11 @@ module Person::Mutations
     end
 
     def add_deleted_person(person)
-      changed_at = person.deleted_at
-      changed_at = DateTime.parse(changed_at).in_time_zone if changed_at.is_a?(String)
+      changed_at = case person.deleted_at
+      when Date then person.deleted_at.beginning_of_day
+      when String then DateTime.parse(person.deleted_at).in_time_zone
+      else person.deleted_at
+      end
       Mutation.new(person, :deleted, changed_at)
     end
 
