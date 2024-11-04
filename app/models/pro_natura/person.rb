@@ -10,6 +10,5 @@ module ProNatura::Person
     Person::PUBLIC_ATTRS << :adress_nummer
 
     Person::SEARCHABLE_ATTRS << :adress_nummer << :language
-    include PgSearchable
   end
 end
