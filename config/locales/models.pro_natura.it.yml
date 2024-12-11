@@ -1,1 +1,75 @@
-it: {}
+it:
+  activerecord:
+    models:
+      group/dachverband:
+        one: Segretariato generale
+        many: Organizzazione ombrello
+        other: Segretariato generale
+      group/dachverband_gremium:
+        one: Comitato
+        many: Comitati
+        other: Istituzione
+      group/sektion:
+        one: Sezione
+        many: Sezioni
+        other: Sezioni
+      group/jugendgruppe:
+        one: Gruppo giovani
+        many: Gruppi giovanili
+        other: Gruppi giovani
+      group/jugendgruppe_gremium:
+        one: Comitato
+        many: Comitati
+        other: Istituzione
+      group/jugendgruppe_passive:
+        one: Membri esterni/aiutanti/passivi
+        many: Membri esterni/aiutanti/passivi
+        other: membri esterni/aiutanti/passivi
+      group/dachverband/pl_jugend:
+        one: PL Gioventù
+        many: PL Gioventù
+        other: Responsabili progetto giovani
+      group/dachverband_gremium/leader:
+        one: Direttore
+        many: Dirigenti
+        other: Monitori
+      group/dachverband_gremium/member:
+        one: membro
+        many: Membri
+        other: Membri
+      group/sektion/admin:
+        one: Gestione della sezione
+        many: Gestione della sezione
+        other: Gestione della sezione
+      group/jugendgruppe/admin:
+        one: Persona responsabile
+        many: Persone responsabili
+        other: Responsabile
+      group/jugendgruppe/leader:
+        one: Direttore
+        many: Dirigenti
+        other: Monitori
+      group/jugendgruppe/member:
+        one: Membro attivo
+        many: Membri attivi
+        other: Membri attivi
+      group/jugendgruppe_gremium/leader:
+        one: Direttore
+        many: Dirigenti
+        other: Monitori
+      group/jugendgruppe_gremium/member:
+        one: membro
+        many: Membri
+        other: Membri
+      group/jugendgruppe_passive/admin:
+        one: Gestione degli indirizzi
+        many: Gestione degli indirizzi
+        other: Gestione degli indirizzi
+      group/jugendgruppe_passive/member:
+        one: Membro passivo/persona esterna/ausiliaria
+        many: Membri passivi/persone esterne/ausiliarie
+        other: Membri passivi/persone esterne/aiuto
+    attributes:
+      person:
+        language: Lingua
+        adress_nummer: Numero di indirizzo

@@ -1,1 +1,43 @@
-it: {}
+it:
+  export/tabular/people/mutations:
+    kind: Tipo di mutazione
+    kinds:
+      created: Nuovo
+      updated: Mutato
+      deleted: 'Cancellato'
+    changed_at: Data di mutazione
+    changeset: Mutazione
+    primary_roles: Ruolo
+    role_changes: Modifica di ruolo
+    primary_layer: Livello principale
+    primary_group: Gruppo principale
+    adress_nummer: Numero
+    first_name: Nome1
+    last_name: Cognome1
+    address: Via
+    country: Paese
+    zip_code: Codice postale
+    town: Luogo
+    phone_number_private: Numero di telefono
+    phone_number_mobile: Numero di cellulare
+    email: e-mail
+  groups:
+    tabs:
+      mutations: Mutazioni
+  people:
+    language:
+      de: Tedesco
+      fr: Francese
+      it: Italiano
+  person:
+    mutations:
+      index:
+        since: Da
+        download_csv: Scarica il CSV
+        invalid_date: 'I dati non sono più validi'
+        explanation: >
+            Qui è possibile scaricare i file csv contenenti le modifiche apportate
+            alle persone, ossia i nuovi membri, quelli trasferiti o quelli cancellati,
+            a partire dalla data indicata. Le persone possono così vedere le ultime
+            modifiche ed esportare solo gli attributi che sono cambiati. I membri
+            passivi sono esclusi.
