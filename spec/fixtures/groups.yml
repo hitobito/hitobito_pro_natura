@@ -10,7 +10,8 @@ root:
   name: Hauptgruppe
   type: Group::Dachverband
   email: root@example.net
-  address: Ophovener Str. 79a
+  street: Ophovener Str.
+  housenumber: 79a
   zip_code: 2843
   town: Neu Carlscheid
   layer_group_id: <%= ActiveRecord::FixtureSet.identify(:root) %>
@@ -22,7 +23,8 @@ gs:
   type: Group::DachverbandGremium
   name: Geschäftsleitung
   email: gs@pronatura.example.ch
-  address: Klostergasse 3
+  street: Klostergasse
+  housenumber: 3
   zip_code: 3333
   town: Bern
   country: CH
