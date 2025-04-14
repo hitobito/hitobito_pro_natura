@@ -146,7 +146,7 @@ describe Person::Mutations::Fetcher, versioning: true do
       role = @role_added.roles.find { |r| r.group_id == groups(:be).id }
       expect(modification.changed_at).to be_within(0.01).of(role.created_at)
       expect(modification.kind).to eq(:updated)
-      expect(modification.changeset.keys).to have(5).items
+      expect(modification.changeset.keys).to have(6).items
       expect(modification.role_changes).to eq(true)
     end
 
