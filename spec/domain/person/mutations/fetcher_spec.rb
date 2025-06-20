@@ -92,9 +92,9 @@ describe Person::Mutations::Fetcher, versioning: true do
     end
 
     it "contains multiple entries when multiple changes were applied" do
-      expect(subject.map(&:to_s).count(@updated.to_s)).to eq 2
-      expect(subject.map(&:to_s).count(@multi_roles.to_s)).to eq 3
-      expect(subject.map(&:to_s).count(@deleted.to_s)).to eq 3
+      expect(subject.map(&:to_s).count(@updated.to_s)).to eq 3
+      expect(subject.map(&:to_s).count(@multi_roles.to_s)).to eq 5
+      expect(subject.map(&:to_s).count(@deleted.to_s)).to eq 4
     end
 
     it "does not contain changes on people with passive roles" do

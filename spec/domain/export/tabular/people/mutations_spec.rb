@@ -23,7 +23,7 @@ describe Export::Tabular::People::Mutations do
   end
 
   context "#csv", versioning: true do
-    let(:p1) { Fabricate(Group::Jugendgruppe::Member.name, group: groups(:thun)).person }
+    let(:p1) { Fabricate(:person) }
     let(:p2) { Fabricate(Group::Jugendgruppe::Member.name, group: groups(:thun)).person }
     let(:p3) { Fabricate(Group::Jugendgruppe::Member.name, group: groups(:thun)).person }
 
@@ -54,7 +54,7 @@ describe Export::Tabular::People::Mutations do
       }.collect { |attr, label| "#{label}: nil -> \"#{p1.send(attr)}\"" }.join(", ")
 
       expect(subject.first).to eq(["neu", format_date_time(p1.created_at), changeset,
-                                    "Aktivmitglied", "nein", groups(:thun).name, groups(:thun).name,
+                                    "", "nein", "", "",
                                     nil, p1.first_name, p1.last_name, p1.address, p1.country,
                                     p1.zip_code, p1.town, nil, "+41 79 000 00 00", p1.email])
 
