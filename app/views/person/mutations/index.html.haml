@@ -9,7 +9,8 @@
   .control-group
     = label_tag(:since, t('.since'), class: 'control-label')
     .input-group
-      %span.input-group-text= icon(:'calendar-alt')
-      = text_field_tag(:since, params[:since], class: 'date col-2 form-control form-control-sm mb-0')
+      %div.input-group-prepend
+        %span.input-group-text= icon(:'calendar-alt')
+      = text_field_tag(:since, params[:since], class: 'span2 date form-control form-control-sm')
 
   = submit_tag(t('.download_csv'), class: 'btn btn-sm btn-primary mb-1')
