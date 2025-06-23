@@ -4,8 +4,6 @@
 #  https://github.com/hitobito/hitobito_pro_natura.
 
 class Person::MutationsController < ApplicationController
-  include AsyncDownload
-
   before_action :authorize_action
 
   decorates :group
@@ -14,16 +12,18 @@ class Person::MutationsController < ApplicationController
     return if request.format.csv? && since.nil?
     respond_to do |format|
       format.html
-      format.csv { render_mutations }
+      format.csv { send_data csv, type: :csv }
     end
   end
 
   private
 
-  def render_mutations
-    with_async_download_cookie(:csv, :mutationen) do |filename|
-      Export::MutationsExportJob.new(:csv, current_user.id, since, {filename: filename}).enqueue!
-    end
+  def csv
+    Export::Tabular::People::Mutations.csv(mutations.fetch)
+  end
+
+  def mutations
+    @mutations ||= Person::Mutations::Fetcher.new(since)
   end
 
   def since
