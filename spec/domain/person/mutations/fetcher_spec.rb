@@ -117,7 +117,6 @@ describe Person::Mutations::Fetcher, versioning: true do
     end
 
     it "contains changeset for create" do
-      pending('was broken by hitobito/hitobito_sbv#92, but mutations output will be re-written in #15 anyways')
       modification = subject.find { |m| m.id == @created.id }
       expect(modification.changed_at).to be_within(1).of(@created.created_at)
       expect(modification.kind).to eq(:created)
@@ -143,17 +142,15 @@ describe Person::Mutations::Fetcher, versioning: true do
     end
 
     it "contains changeset for role added" do
-      pending('was broken by hitobito/hitobito_sbv#92, but mutations output will be re-written in #15 anyways')
       modification = subject.find { |m| m.id == @role_added.id }
       role = @role_added.roles.find { |r| r.group_id == groups(:be).id }
       expect(modification.changed_at).to be_within(0.01).of(role.created_at)
       expect(modification.kind).to eq(:updated)
-      expect(modification.changeset.keys).to have(5).items
+      expect(modification.changeset.keys).to have(6).items
       expect(modification.role_changes).to eq(true)
     end
 
     it "contains changeset for role deleted" do
-      pending('was broken by hitobito/hitobito_sbv#92, but mutations output will be re-written in #15 anyways')
       modification = subject.find { |m| m.id == @role_deleted.id }
       role = @role_deleted.roles.with_inactive.find { |r| r.group_id == groups(:thun).id }
       expect(modification.changed_at).to eq role.updated_at
