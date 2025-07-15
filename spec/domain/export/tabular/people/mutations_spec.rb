@@ -39,7 +39,7 @@ describe Export::Tabular::People::Mutations do
       expect(exporter.labels).to eq(["Mutationsart", "Mutationsdatum", "Mutation", "Rollen",
                                    "Rollenanpassung", "Hauptebene", "Hauptgruppe",
                                    "adrnr", "vorname1", "nachname1", "strasse", "land",
-                                   "plz", "ort", "telp", "mobilep", "emailp"])
+                                   "plz", "ort", "telp", "mobilep", "emailp", "birthday"])
     end
 
     it "renders all values" do
@@ -56,12 +56,12 @@ describe Export::Tabular::People::Mutations do
       expect(subject.first).to eq(["neu", format_date_time(p1.created_at), changeset,
                                     "", "nein", "", "",
                                     nil, p1.first_name, p1.last_name, p1.address, p1.country,
-                                    p1.zip_code, p1.town, nil, "+41 79 000 00 00", p1.email])
+                                    p1.zip_code, p1.town, nil, "+41 79 000 00 00", p1.email, nil])
 
       expect(subject.third).to eq(["gelöscht", format_date_time(p3.created_at), "",
                                     "Aktivmitglied", "nein", groups(:thun).name, groups(:thun).name,
                                     nil, p3.first_name, p3.last_name, p3.address, p3.country,
-                                    p3.zip_code, p3.town, nil, nil, p3.email])
+                                    p3.zip_code, p3.town, nil, nil, p3.email, nil])
     end
 
     it "renders changeset of role" do

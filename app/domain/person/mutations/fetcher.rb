@@ -5,9 +5,10 @@
 
 module Person::Mutations
   class Fetcher
-    EXCLUDED_ROLES = [
-      Group::JugendgruppePassive::Admin,
-      Group::JugendgruppePassive::Member
+    LEADER_ROLES = [
+      Group::DachverbandGremium::Leader,
+      Group::Jugendgruppe::Leader,
+      Group::JugendgruppeGremium::Leader
     ].map(&:sti_name)
 
     attr_reader :since
@@ -21,11 +22,11 @@ module Person::Mutations
       versions = fetch_versions(all_people.keys)
 
       mutations = versions.map do |version|
-        Mutation.new(version, all_people[version.main_id])
+        Mutation.new(version, all_people[version.main_id], deleted_people.map(&:id).include?(version.main_id))
       end
 
       deleted_mutations = deleted_people.map do |person|
-        Mutation.new(build_deleted_version(person), person)
+        Mutation.new(build_deleted_version(person), person, true)
       end
 
       (mutations + deleted_mutations).sort_by(&:changed_at)
@@ -48,7 +49,8 @@ module Person::Mutations
 
     def people_with_roles
       @people_with_roles ||= Person.joins(:roles_unscoped)
-        .where.not(roles: {type: EXCLUDED_ROLES})
+        .where(roles: {type: LEADER_ROLES})
+        .where("roles.end_on IS NULL OR roles.end_on >= ?", since.to_date)
         .includes(:roles, :phone_numbers, :primary_group)
         .distinct
     end

@@ -13,7 +13,7 @@ module Person::Mutations
       :phone_number_private, :phone_number_mobile,
       *PERSON_ATTRS
 
-    def initialize(version, person = version.main)
+    def initialize(version, person, role_deleted = false)
       @kind = identify_kind(version)
       @changed_at = version.created_at
       @changeset = version.changeset
@@ -21,7 +21,7 @@ module Person::Mutations
 
       store_attrs(person)
       store_phone_numbers(person)
-      (kind == :deleted) ? store_last_group_info(person) : store_primary_group_info(person)
+      role_deleted ? store_last_group_info(person) : store_primary_group_info(person)
     end
 
     def to_s
