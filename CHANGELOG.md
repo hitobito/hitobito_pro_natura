@@ -1,7 +1,7 @@
 # Hitobito Pro Natura Changelog
 
 ## unreleased
-- Der Mutationen Export exportiert neu alle Änderungen einer Person, anstatt immer nur die letzte (hitobito_pro_natura#15)
+- Der Mutationen Export exportiert neu alle Änderungen an Leitern (hitobito_pro_natura#15)
 
 ## Version 2.2
 

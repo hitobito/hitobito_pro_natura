@@ -26,6 +26,7 @@ de:
     phone_number_private: telp
     phone_number_mobile: mobilep
     email: emailp
+    birthday: birthday
 
   groups:
     tabs:
