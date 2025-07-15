@@ -16,24 +16,45 @@ module Person::Mutations
       @since = since
     end
 
-    def fetch
-      all_mutations.sort_by(&:changed_at)
+    def mutations
+      all_people = (people_with_roles + deleted_people).index_by(&:id)
+      versions = fetch_versions(all_people.keys)
+
+      mutations = versions.map do |version|
+        Mutation.new(version, all_people[version.main_id])
+      end
+
+      deleted_mutations = deleted_people.map do |person|
+        Mutation.new(build_deleted_version(person), person)
+      end
+
+      (mutations + deleted_mutations).sort_by(&:changed_at)
     end
 
-    def mutated_people
-      people_with_roles
-        .joins("INNER JOIN versions " \
-              "ON versions.main_id = people.id AND versions.main_type = 'Person'")
-        .where(versions: {created_at: since..})
-        .group("people.id")
-        .having(<<~SQL,
-          MAX(COALESCE(roles.end_on, '9999-01-01')) > :today
-        SQL
-          today: Date.current)
+    private
+
+    def build_deleted_version(person)
+      PaperTrail::Version.new(
+        main: person,
+        created_at: person.deleted_at,
+        event: :delete
+      )
+    end
+
+    def fetch_versions(ids)
+      PaperTrail::Version.where(main_type: Person.sti_name, main_id: ids, created_at: since..)
+        .order(created_at: :desc)
+    end
+
+    def people_with_roles
+      @people_with_roles ||= Person.joins(:roles_unscoped)
+        .where.not(roles: {type: EXCLUDED_ROLES})
+        .includes(:roles, :phone_numbers, :primary_group)
+        .distinct
     end
 
     def deleted_people
-      people_with_roles
+      @deleted_people ||= people_with_roles
         .select("people.*, MAX(roles.end_on) AS deleted_at")
         .group("people.id")
         .having(<<~SQL,
@@ -43,47 +64,6 @@ module Person::Mutations
         SQL
           since: since.to_date,
           today: Date.current)
-    end
-
-    private
-
-    def all_mutations
-      mutated_people.includes(:roles, :phone_numbers, :primary_group).find_each.collect do |person|
-        add_modified_person(person)
-      end +
-        deleted_people.includes(:phone_numbers).find_each.collect do |person|
-          add_deleted_person(person)
-        end
-    end
-
-    def people_with_roles
-      Person
-        .joins("INNER JOIN roles ON roles.person_id = people.id")
-        .where.not(roles: {type: EXCLUDED_ROLES})
-        .distinct
-    end
-
-    def add_modified_person(person)
-      kind = identify_kind(person)
-      version = PaperTrail::Version.where(main: person).order("created_at DESC").first
-      Mutation.new(person, kind, version.created_at, version.changeset, since)
-    end
-
-    def add_deleted_person(person)
-      changed_at = case person.deleted_at
-      when Date then person.deleted_at.beginning_of_day
-      when String then DateTime.parse(person.deleted_at).in_time_zone
-      else person.deleted_at
-      end
-      Mutation.new(person, :deleted, changed_at)
-    end
-
-    def identify_kind(person)
-      if person.created_at >= since
-        :created
-      else
-        :updated
-      end
     end
   end
 end

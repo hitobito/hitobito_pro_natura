@@ -37,6 +37,9 @@ de:
       fr: französisch
       it: italienisch
 
+  person/mutations:
+    export_enqueued: Export wird im Hintergrund gestartet und nach Fertigstellung heruntergeladen.
+
   person:
     mutations:
       index:
@@ -44,7 +47,7 @@ de:
         download_csv: CSV herunterladen
         invalid_date: 'Seit ist kein gültiges Datum'
         explanation: >
-          Hier kann eine CSV Datei herunter geladen werden, welche alle neuen, mutierten
+          Hier kann eine CSV Datei heruntergeladen werden, welche alle neuen, mutierten
           und gelöschten Personen seit dem angegebenen Datum enthält.
           Dabei können auch Personen vorkommen, welche andere Mutationen als solche an den
           exportierten Attributen aufweisen. Passivmitglieder sind ausgeschlossen.
