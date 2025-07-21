@@ -151,7 +151,7 @@ describe Person::Mutations::Fetcher, versioning: true do
     it "contains changeset for changes, even when role was deleted" do
       modification = subject.find { |m| m.id == @mutation_after_role_is_deleted.id && m.changeset.keys.include?("number") }
       expect(modification.kind).to eq(:updated)
-      expect(modification.primary_roles).to eq ["Leiter/in (bis #{1.week.ago})"]
+      expect(modification.primary_roles).to eq ["Leiter/in (bis #{1.week.ago.strftime('%d.%m.%Y')})"]
     end
   end
 end
