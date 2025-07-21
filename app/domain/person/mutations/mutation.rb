@@ -5,7 +5,7 @@
 
 module Person::Mutations
   class Mutation
-    PERSON_ATTRS = [:id, :first_name, :last_name, :nickname, :address, :zip_code, :town, :country,
+    PERSON_ATTRS = [:id, :first_name, :last_name, :nickname, :birthday, :address, :zip_code, :town, :country,
       :email, :adress_nummer]
 
     attr_reader :kind, :changed_at, :changeset,
@@ -13,17 +13,15 @@ module Person::Mutations
       :phone_number_private, :phone_number_mobile,
       *PERSON_ATTRS
 
-    def initialize(person, kind, changed_at, changeset = {}, since = nil)
-      @kind = kind
-      @changed_at = changed_at
-      @changeset = changeset
+    def initialize(version, person, role_deleted = false)
+      @kind = identify_kind(version)
+      @changed_at = version.created_at
+      @changeset = version.changeset
+      @role_changes = version.item_type == Role.sti_name
+
       store_attrs(person)
       store_phone_numbers(person)
-      if kind == :deleted
-        store_last_group_info(person, since)
-      else
-        store_primary_group_info(person, since)
-      end
+      role_deleted ? store_last_group_info(person) : store_primary_group_info(person)
     end
 
     def to_s
@@ -31,6 +29,16 @@ module Person::Mutations
     end
 
     private
+
+    def identify_kind(version)
+      if version.event == "delete"
+        :deleted
+      elsif version.event == "create" && version.item_type == Person.sti_name
+        :created
+      else
+        :updated
+      end
+    end
 
     def store_attrs(person)
       PERSON_ATTRS.each do |attr|
@@ -43,45 +51,25 @@ module Person::Mutations
       @phone_number_mobile = fetch_phone_number(person, "Mobil")
     end
 
-    def store_primary_group_info(person, since)
-      @primary_roles = fetch_primary_roles(person).collect(&:to_s)
-      @primary_layer = fetch_primary_layer(person).to_s
+    def store_primary_group_info(person)
+      @primary_roles = person.roles.select { |r| r.group_id == person.primary_group_id }.collect(&:to_s)
+      @primary_layer = person.primary_group&.layer_group.to_s
       @primary_group = person.primary_group.to_s
-      @role_changes = fetch_role_changes(person, since) if since
     end
 
-    def store_last_group_info(person, since)
-      last_role = fetch_last_role(person)
+    def store_last_group_info(person)
+      last_role = person.roles.with_inactive.order("end_on DESC").first
       if last_role
         @primary_roles = [last_role.to_s]
-        @primary_layer = last_role.group.try(:layer_group).to_s
+        @primary_layer = last_role.group&.layer_group.to_s
         @primary_group = last_role.group.to_s
-        @role_changes = fetch_role_changes(person, since) if since
       else
         @primary_roles = []
       end
     end
 
-    def fetch_primary_roles(person)
-      person.roles.select { |r| r.group_id == person.primary_group_id }
-    end
-
-    def fetch_last_role(person)
-      person.roles.with_inactive.order("end_on DESC").first
-    end
-
-    def fetch_primary_layer(person)
-      person.primary_group.try(:layer_group).to_s
-    end
-
     def fetch_phone_number(person, label)
-      person.phone_numbers.find { |n| n.label == label }.try(:number)
-    end
-
-    def fetch_role_changes(person, since)
-      person.roles.with_inactive.any? do |r|
-        r.created_at >= since || r.end_on && r.end_on >= since.to_date
-      end
+      person.phone_numbers.find { |n| n.label == label }&.number
     end
   end
 end
