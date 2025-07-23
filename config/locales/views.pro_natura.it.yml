@@ -26,6 +26,7 @@ it:
     phone_number_private: Numero di telefono
     phone_number_mobile: Numero di cellulare
     email: e-mail
+    birthday: birthday
 
   groups:
     tabs:
@@ -37,6 +38,9 @@ it:
       fr: Francese
       it: Italiano
 
+  person/mutations:
+    export_enqueued: Export wird im Hintergrund gestartet und nach Fertigstellung heruntergeladen.
+
   person:
     mutations:
       index:
@@ -44,8 +48,7 @@ it:
         download_csv: Scarica il CSV
         invalid_date: 'I dati non sono più validi'
         explanation: >
-            Qui è possibile scaricare i file csv contenenti le modifiche apportate
-            alle persone, ossia i nuovi membri, quelli trasferiti o quelli cancellati,
-            a partire dalla data indicata. Le persone possono così vedere le ultime
-            modifiche ed esportare solo gli attributi che sono cambiati. I membri
-            passivi sono esclusi.
+            Hier kann eine CSV Datei heruntergeladen werden, welche alle neuen, mutierten
+            und gelöschten Personen seit dem angegebenen Datum enthält. Dabei können
+            auch Personen vorkommen, welche andere Mutationen als solche an den exportierten
+            Attributen aufweisen. Passivmitglieder sind ausgeschlossen.
