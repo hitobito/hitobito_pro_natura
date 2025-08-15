@@ -1,6 +1,6 @@
 # Hitobito Pro Natura Changelog
 
-## unreleased
+## Version 2.6
 - Der Mutationen Export exportiert neu alle Änderungen an Leitern (hitobito_pro_natura#15)
 
 ## Version 2.2
