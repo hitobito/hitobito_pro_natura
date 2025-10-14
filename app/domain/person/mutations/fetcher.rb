@@ -17,12 +17,13 @@ module Person::Mutations
       @since = since
     end
 
-    def mutations
+    def mutations # rubocop:todo Metrics/AbcSize
       all_people = (people_with_roles + deleted_people).index_by(&:id)
       versions = fetch_versions(all_people.keys)
 
       mutations = versions.map do |version|
-        Mutation.new(version, all_people[version.main_id], deleted_people.map(&:id).include?(version.main_id))
+        Mutation.new(version, all_people[version.main_id],
+          deleted_people.map(&:id).include?(version.main_id))
       end
 
       deleted_mutations = deleted_people.map do |person|

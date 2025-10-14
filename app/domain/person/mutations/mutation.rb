@@ -5,7 +5,9 @@
 
 module Person::Mutations
   class Mutation
+    # rubocop:todo Layout/LineLength
     PERSON_ATTRS = [:id, :first_name, :last_name, :nickname, :birthday, :address, :zip_code, :town, :country,
+      # rubocop:enable Layout/LineLength
       :email, :adress_nummer]
 
     attr_reader :kind, :changed_at, :changeset,
@@ -52,7 +54,9 @@ module Person::Mutations
     end
 
     def store_primary_group_info(person)
-      @primary_roles = person.roles.select { |r| r.group_id == person.primary_group_id }.collect(&:to_s)
+      @primary_roles = person.roles.select { |r|
+        r.group_id == person.primary_group_id
+      }.collect(&:to_s)
       @primary_layer = person.primary_group&.layer_group.to_s
       @primary_group = person.primary_group.to_s
     end
