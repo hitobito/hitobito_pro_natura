@@ -26,7 +26,7 @@ it:
     phone_number_private: Numero di telefono
     phone_number_mobile: Numero di cellulare
     email: e-mail
-    birthday: birthday
+    birthday: Data di nascita
 
   groups:
     tabs:
@@ -39,7 +39,7 @@ it:
       it: Italiano
 
   person/mutations:
-    export_enqueued: Export wird im Hintergrund gestartet und nach Fertigstellung heruntergeladen.
+    export_enqueued: L'esportazione viene avviata parallelamente e scaricata al termine.
 
   person:
     mutations:
