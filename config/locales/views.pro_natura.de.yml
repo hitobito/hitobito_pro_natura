@@ -39,7 +39,7 @@ de:
       it: italienisch
 
   person/mutations:
-    export_enqueued: Export wird im Hintergrund gestartet und nach Fertigstellung heruntergeladen.
+    export_enqueued: "Export wird im Hintergrund gestartet und kann nach Fertigstellung auf der Jobübersicht heruntergeladen werden: %{overview_link}"
 
   person:
     mutations:

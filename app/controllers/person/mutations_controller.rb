@@ -4,7 +4,7 @@
 #  https://github.com/hitobito/hitobito_pro_natura.
 
 class Person::MutationsController < ApplicationController
-  include AsyncDownload
+  include UserManageableExportJob
 
   before_action :authorize_action
 
@@ -21,9 +21,8 @@ class Person::MutationsController < ApplicationController
   private
 
   def render_mutations
-    with_async_download_cookie(:csv, :mutationen) do |filename|
-      Export::MutationsExportJob.new(:csv, current_user.id, since, {filename: filename}).enqueue!
-    end
+    Export::MutationsExportJob.new(:csv, current_user.id, since, {filename: "mutationen"}).enqueue!
+    respond_to_export_job
   end
 
   def since
