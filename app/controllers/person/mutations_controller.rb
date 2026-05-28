@@ -4,7 +4,7 @@
 #  https://github.com/hitobito/hitobito_pro_natura.
 
 class Person::MutationsController < ApplicationController
-  include UserManageableExportJob
+  include ExportableRedirect
 
   before_action :authorize_action
 
@@ -22,7 +22,7 @@ class Person::MutationsController < ApplicationController
 
   def render_mutations
     Export::MutationsExportJob.new(:csv, current_user.id, since, {filename: "mutationen"}).enqueue!
-    respond_to_export_job
+    redirect_after_enqueued_export
   end
 
   def since
