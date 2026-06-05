@@ -83,3 +83,5 @@ it:
       person:
         language: Lingua
         adress_nummer: Numero di indirizzo
+  delayed_job:
+    export/mutations_export_job: Mutationen-Export

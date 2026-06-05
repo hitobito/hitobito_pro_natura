@@ -44,6 +44,10 @@ describe Person::MutationsController, type: :controller do
         expect do
           get :index, params: { group_id: groups(:root).id, since: "1.1.2016" }, format: :csv
         end.to change(Delayed::Job.where("handler ILIKE '%Export::MutationsExportJob%'"), :count).by(1)
+
+        expect(flash[:notice]).to match(
+          /Export wird im Hintergrund gestartet und kann nach Fertigstellung auf der Jobübersicht/
+        )
       end
     end
   end

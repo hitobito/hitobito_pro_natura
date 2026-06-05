@@ -39,7 +39,7 @@ it:
       it: Italiano
 
   person/mutations:
-    export_enqueued: L'esportazione viene avviata parallelamente e scaricata al termine.
+    export_enqueued: "Export wird im Hintergrund gestartet und kann nach Fertigstellung auf der Jobübersicht heruntergeladen werden: %{overview_link}"
 
   person:
     mutations:

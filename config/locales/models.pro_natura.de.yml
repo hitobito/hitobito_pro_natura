@@ -69,8 +69,9 @@ de:
         one: Passivmitglied/Extern/Hilfsperson
         other: Passivmitglieder/Externe/Hilfspersonen
 
-
     attributes:
       person:
         language: Sprache
         adress_nummer: Adress-Nummer
+  delayed_job:
+    export/mutations_export_job: Mutationen-Export
