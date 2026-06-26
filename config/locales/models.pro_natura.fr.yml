@@ -84,4 +84,4 @@ fr:
         language: Langue
         adress_nummer: Numéro d'adresse
   delayed_job:
-    export/mutations_export_job: Mutationen-Export
+    export/mutations_export_job: Exportation des mutations

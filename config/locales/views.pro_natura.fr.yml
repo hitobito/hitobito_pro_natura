@@ -39,7 +39,7 @@ fr:
       it: italien
 
   person/mutations:
-    export_enqueued: "Export wird im Hintergrund gestartet und kann nach Fertigstellung auf der Jobübersicht heruntergeladen werden: %{overview_link}"
+    export_enqueued: "L'exportation commence en arrière-plan et peut être téléchargée une fois terminée depuis l'aperçu des travaux: %{overview_link}"
 
   person:
     mutations:
