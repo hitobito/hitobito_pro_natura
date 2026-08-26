@@ -43,8 +43,10 @@ describe Export::Tabular::People::Mutations do
     end
 
     it "renders all values" do
-      p1.phone_numbers.create!(number: "+41790000000", label: "Mobil")
-      p2.phone_numbers.create!(number: "+41791111111", label: "Arbeit")
+      p1.phone_numbers.create!(number: "+41790000000",
+        category: contact_account_categories(:phone_number_person_mobile))
+      p2.phone_numbers.create!(number: "+41791111111",
+        category: contact_account_categories(:phone_number_person_work))
 
       changeset = {
         first_name: "Vorname",
@@ -75,7 +77,6 @@ describe Export::Tabular::People::Mutations do
     def format_date_time(value)
       "#{I18n.l(value.to_date)} #{I18n.l(value, format: :time)}"
     end
-
   end
 
 end

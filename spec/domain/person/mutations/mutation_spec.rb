@@ -17,7 +17,8 @@ describe Person::Mutations::Mutation do
     let(:version) { PaperTrail::Version.create!(item: person, main: person, event: :update) }
 
     it "resolves phone number" do
-      person.phone_numbers.create!(number: "+41 79 000 00 00", label: "Privat")
+      person.phone_numbers.create!(number: "+41 79 000 00 00",
+        category: contact_account_categories(:phone_number_person_landline))
       expect(subject.phone_number_private).to eq("+41 79 000 00 00")
       expect(subject.phone_number_mobile).to be_nil
     end
