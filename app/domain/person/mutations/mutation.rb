@@ -49,8 +49,8 @@ module Person::Mutations
     end
 
     def store_phone_numbers(person)
-      @phone_number_private = fetch_phone_number(person, "Privat")
-      @phone_number_mobile = fetch_phone_number(person, "Mobil")
+      @phone_number_private = fetch_phone_number(person, :landline)
+      @phone_number_mobile = fetch_phone_number(person, :mobile)
     end
 
     def store_primary_group_info(person)
@@ -72,8 +72,8 @@ module Person::Mutations
       end
     end
 
-    def fetch_phone_number(person, label)
-      person.phone_numbers.find { |n| n.label == label }&.number
+    def fetch_phone_number(person, category_key)
+      person.phone_numbers.find { |n| n.category.key.to_sym == category_key }&.number
     end
   end
 end

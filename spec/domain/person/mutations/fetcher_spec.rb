@@ -21,7 +21,8 @@ describe Person::Mutations::Fetcher, versioning: true do
 
     @before = create_past(first_name: "@before")
     @phone_changed = create_past(first_name: "@phone_changed")
-    @phone_changed.phone_numbers.create!(number: "+41790000000", label: "Privat")
+    @phone_changed.phone_numbers.create!(number: "+41790000000",
+      category: contact_account_categories(:phone_number_person_landline))
     @role_added = create_past(first_name: "@role_added").tap do
       Fabricate(Group::Sektion::Admin.name, group: groups(:be), person: _1)
     end
@@ -45,7 +46,8 @@ describe Person::Mutations::Fetcher, versioning: true do
     end
     @mutation_after_role_is_deleted = create_past([Group::Jugendgruppe::Leader, groups(:thun)], first_name: "@mutation_after_role_is_deleted").tap do
       _1.roles.where(group: groups(:thun)).each {|r| r.update!(end_on: 1.week.ago) }
-      _1.phone_numbers.create!(number: "+41790000000", label: "Privat")
+      _1.phone_numbers.create!(number: "+41790000000",
+        category: contact_account_categories(:phone_number_person_landline))
     end
     @passive = Fabricate(:person, first_name: "@passive").tap do
       Fabricate(Group::JugendgruppePassive::Member.name, person: _1, group: groups(:thun_passive))
@@ -126,7 +128,9 @@ describe Person::Mutations::Fetcher, versioning: true do
       modification = subject.find { |m| m.id == @phone_changed.id }
       expect(modification.kind).to eq(:updated)
       expect(modification.changeset["number"]).to eq([nil, "+41 79 000 00 00"])
-      expect(modification.changeset["label"]).to eq([nil, "Privat"])
+      expect(modification.changeset["category_id"]).to eq(
+        [nil, contact_account_categories(:phone_number_person_landline).id]
+      )
       expect(modification.role_changes).to eq(false)
     end
 
