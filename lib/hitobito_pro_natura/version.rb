@@ -4,5 +4,5 @@
 #  https://github.com/hitobito/hitobito_pro_natura.
 
 module HitobitoProNatura
-  VERSION = "2.11.3"
+  VERSION = "2.11.5"
 end
